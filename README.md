@@ -40,6 +40,90 @@ NSDictionary *queryUser = [store getObjectById:key fromTable:tableName];
 NSLog(@"query data result: %@", queryUser);
 ```
 
+## 集成说明
+
+使用本项目，你需要将开源代码中的`YTKKeyValueStore.h`和`YTKKeyValueStore.m`添加到你的工程中，并且在工程设置的`Link Binary With Libraries`中，增加`libsqlite3.dylib`，如下图所示：
+
+![](http://blog.devtang.com/images/key-value-store-setup.jpg)
+
+由于时间关系，当前还未提供Cocoapods方式集成。
+
+## 使用说明
+
+所有的接口都封装在`YTKKeyValueStore`类中。以下是一些常用方法说明。
+
+### 打开（或创建）数据库
+
+通过`initDBWithName`方法，即可在程序的`Document`目录打开指定的数据库文件。如果该文件不存在，则会创建一个新的数据库。
+
+```
+// 打开名为test.db的数据库，如果该文件不存在，则创新一个新的。
+YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initDBWithName:@"test.db"];
+```
+
+### 创建数据库表
+
+通过`createTableWithName`方法，我们可以在打开的数据库中创建表，如果表名已经存在，则会忽略该操作。如下所示：
+
+```
+YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initDBWithName:@"test.db"];
+NSString *tableName = @"user_table";
+// 创建名为user_table的表，如果已存在，则忽略该操作
+[store createTableWithName:tableName];
+```
+
+### 读写数据
+
+`YTKKeyValueStore`类提供key-value的存储接口，存入的所有数据需要提供key以及其对应的value，读取的时候需要提供key来获得相应的value。
+
+`YTKKeyValueStore`类支持的value类型包括：NSString, NSNumber, NSDictionary和NSArray，为此提供了以下接口：
+
+```
+- (void)putString:(NSString *)string withId:(NSString *)stringId intoTable:(NSString *)tableName;
+- (void)putNumber:(NSNumber *)number withId:(NSString *)numberId intoTable:(NSString *)tableName;
+- (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName;
+```
+
+与此对应，有以下value为NSString, NSNumber, NSDictionary和NSArray的读取接口：
+
+```
+- (NSString *)getStringById:(NSString *)stringId fromTable:(NSString *)tableName;
+- (NSNumber *)getNumberById:(NSString *)numberId fromTable:(NSString *)tableName;
+- (id)getObjectById:(NSString *)objectId fromTable:(NSString *)tableName;
+```
+
+### 删除数据接口
+
+`YTKKeyValueStore`提供了以下接口用于删除数据。
+
+```
+// 清除数据表中所有数据
+- (void)clearTable:(NSString *)tableName;
+
+// 删除指定key的数据
+- (void)deleteObjectById:(NSString *)objectId fromTable:(NSString *)tableName;
+
+// 批量删除一组key数组的数据
+- (void)deleteObjectsByIdArray:(NSArray *)objectIdArray fromTable:(NSString *)tableName;
+
+// 批量删除所有带指定前缀的数据
+- (void)deleteObjectsByIdPrefix:(NSString *)objectIdPrefix fromTable:(NSString *)tableName;
+```
+
+### 更多接口
+
+`YTKKeyValueStore`还提供了以下接口来获取表示内部存储的key-value对象。
+
+```
+// 获得指定key的数据
+- (YTKKeyValueItem *)getYTKKeyValueItemById:(NSString *)objectId fromTable:(NSString *)tableName;
+// 获得所有数据
+- (NSArray *)getAllItemsFromTable:(NSString *)tableName;
+```
+
+由于`YTKKeyValueItem`类带有`createdTime`字段，可以获得该条数据的插入（或更新）时间，以便上层做复杂的处理（例如用来做缓存过期逻辑）。
+
+
 ## 其它
 
 两年前写过不少测试用例，后来给弄丢了，所以现在开项项目中还没有测试用例。由于时间关系，更详细的使用说明稍后会更新到项目中。
