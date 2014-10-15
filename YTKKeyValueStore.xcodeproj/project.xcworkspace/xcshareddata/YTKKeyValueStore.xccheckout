@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C0DF8D94-A29B-4110-809C-D2BFC792FB0A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>YTKKeyValueStore</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8A97C7B44885A09BEC7EBCBAC27351C278FA0AB2</key>
+		<string>github.com:yuantiku/YTKKeyValueStore.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>YTKKeyValueStore.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8A97C7B44885A09BEC7EBCBAC27351C278FA0AB2</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:yuantiku/YTKKeyValueStore.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8A97C7B44885A09BEC7EBCBAC27351C278FA0AB2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8A97C7B44885A09BEC7EBCBAC27351C278FA0AB2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>YTKKeyValueStore</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -8,26 +8,66 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "YTKKeyValueStore.h"
 
 @interface YTKKeyValueStoreTests : XCTestCase
 
 @end
 
-@implementation YTKKeyValueStoreTests
+@implementation YTKKeyValueStoreTests {
+    YTKKeyValueStore *_store;
+    NSString *_tableName;
+}
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    _tableName = @"test_table";
+    _store = [[YTKKeyValueStore alloc] init];
+    [_store createTableWithName:_tableName];
+    [_store clearTable:_tableName];
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [_store clearTable:_tableName];
+    [_store close];
+    _store = nil;
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+- (void)testSaveNSString {
+    NSString *str1 = @"abc";
+    NSString *key1 = @"key1";
+    NSString *str2 = @"abc2";
+    NSString *key2 = @"key2";
+    [_store putString:str1 withId:key1 intoTable:_tableName];
+    [_store putString:str2 withId:key2 intoTable:_tableName];
+    
+    NSString *result;
+    result = [_store getStringById:key1 fromTable:_tableName];
+    XCTAssertEqualObjects(str1, result);
+    result = [_store getStringById:key2 fromTable:_tableName];
+    XCTAssertEqualObjects(str2, result);
+    
+    result = [_store getStringById:@"key3" fromTable:_tableName];
+    XCTAssertNil(result);
+}
+
+- (void)testSaveNumber {
+    NSNumber *number1 = @1;
+    NSString *key1 = @"key1";
+    NSNumber *number2 = @2;
+    NSString *key2 = @"key2";
+    [_store putNumber:number1 withId:key1 intoTable:_tableName];
+    [_store putNumber:number2 withId:key2 intoTable:_tableName];
+    
+    NSNumber *result;
+    result = [_store getNumberById:key1 fromTable:_tableName];
+    XCTAssertEqualObjects(number1, result);
+    result = [_store getNumberById:key2 fromTable:_tableName];
+    XCTAssertEqualObjects(number2, result);
+    
+    result = [_store getNumberById:@"key3" fromTable:_tableName];
+    XCTAssertNil(result);
 }
 
 - (void)testPerformanceExample {
