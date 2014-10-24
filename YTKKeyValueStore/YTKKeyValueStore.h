@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, StoreValueType) {
+    kStoreValueType_DA,
+    kStoreValueType_String,
+    kStoreValueType_Number,
+};
+
 @interface YTKKeyValueItem : NSObject
 
 @property (strong, nonatomic) NSString *itemId;
 @property (strong, nonatomic) id itemObject;
+@property (assign, nonatomic) StoreValueType type;
 @property (strong, nonatomic) NSDate *createdTime;
 
 @end
@@ -31,19 +38,23 @@
 
 ///************************ Put&Get methods *****************************************
 
+- (StoreValueType)typeWithValue:(id)value;
+
 - (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName;
 
 - (id)getObjectById:(NSString *)objectId fromTable:(NSString *)tableName;
 
 - (YTKKeyValueItem *)getYTKKeyValueItemById:(NSString *)objectId fromTable:(NSString *)tableName;
 
-- (void)putString:(NSString *)string withId:(NSString *)stringId intoTable:(NSString *)tableName;
 
-- (NSString *)getStringById:(NSString *)stringId fromTable:(NSString *)tableName;
+//- (void)putString:(NSString *)string withId:(NSString *)stringId intoTable:(NSString *)tableName;
+//
+//- (NSString *)getStringById:(NSString *)stringId fromTable:(NSString *)tableName;
+//
+//- (void)putNumber:(NSNumber *)number withId:(NSString *)numberId intoTable:(NSString *)tableName;
+//
+//- (NSNumber *)getNumberById:(NSString *)numberId fromTable:(NSString *)tableName;
 
-- (void)putNumber:(NSNumber *)number withId:(NSString *)numberId intoTable:(NSString *)tableName;
-
-- (NSNumber *)getNumberById:(NSString *)numberId fromTable:(NSString *)tableName;
 
 - (NSArray *)getAllItemsFromTable:(NSString *)tableName;
 
