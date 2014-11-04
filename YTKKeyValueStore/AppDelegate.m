@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "YTKKeyValueStore.h"
+#import "YTKKeyValueManager.h"
 
 @interface AppDelegate ()
 
@@ -19,14 +19,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Demo
     NSString *tableName = @"user_table";
-    YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initDBWithName:@"test.db"];
+    NSString *msgTableName = @"msgTableName";
+    YTKKeyValueStore *store = [YTKKeyValueManager getKeyValueStoreWithName:@"test.db"];
     [store createTableWithName:tableName];
+    [store createTableWithName:msgTableName];
+    
     NSString *key = @"1";
     NSDictionary *user = @{@"id": @1, @"name": @"tangqiao", @"age": @30};
-    [store putObject:user withId:key intoTable:tableName];
+    YTKKeyValueItem *item = [store putObject:user withId:key intoTable:tableName];
+    [store putObject:item withId:key intoTable:msgTableName];
     
     NSDictionary *queryUser = [store getObjectById:key fromTable:tableName];
     NSLog(@"query data result: %@", queryUser);
+    
+    YTKKeyValueItem *newItem = [store getObjectById:key fromTable:msgTableName];
+    NSLog(@"query data result: %@", newItem);
+
     
     return YES;
 }

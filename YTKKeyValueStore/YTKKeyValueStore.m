@@ -10,6 +10,8 @@
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
 
+#define KeyValueItemType @"KeyValueItemType"
+
 #ifdef DEBUG
 #define debugLog(...)    NSLog(__VA_ARGS__)
 #define debugMethod()    NSLog(@"%s", __func__)
@@ -22,10 +24,54 @@
 
 #define PATH_OF_DOCUMENT    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
 
-@implementation YTKKeyValueItem
+@implementation NSMutableDictionary(YTKKeyValueStore)
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"id=%@, value=%@, timeStamp=%@", _itemId, _itemObject, _createdTime];
+- (void)setTableName:(NSString *)tableName
+{
+    [self setValue:tableName forKey:@"tableName"];
+}
+
+-(NSString *)tableName
+{
+    return [self objectForKey:@"tableName"];
+}
+
+- (void)setCreatedTime:(NSDate *)createdTime
+{
+    if (createdTime) {
+        [self setValue:@(createdTime.timeIntervalSince1970) forKey:@"createdTime"];
+    }
+}
+
+- (NSDate *)createdTime
+{
+    NSNumber *timeInterval = [self objectForKey:@"createdTime"];
+    if (timeInterval) {
+        return [NSDate dateWithTimeIntervalSince1970:[timeInterval floatValue]];
+
+    } else {
+        return nil;
+    }
+}
+
+- (void)setItemId:(NSString *)itemId
+{
+    [self setValue:itemId forKey:@"itemId"];
+}
+
+- (NSString *)itemId
+{
+    return [self objectForKey:@"itemId"];
+}
+
+- (void)setItemObject:(id )itemObject
+{
+    [self setValue:itemObject forKey:@"itemObject"];
+}
+
+- (id)itemObject
+{
+    return [self objectForKey:@"itemObject"];
 }
 
 @end
@@ -127,15 +173,15 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
 }
 
-- (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName {
+- (YTKKeyValueItem *)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
-        return;
+        return nil;
     }
     NSError * error;
     NSData * data = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
     if (error) {
         debugLog(@"ERROR, faild to get json data");
-        return;
+        return nil;
     }
     NSString * jsonString = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)];
     NSDate * createdTime = [NSDate date];
@@ -146,6 +192,15 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }];
     if (!result) {
         debugLog(@"ERROR, failed to insert/replace into table: %@", tableName);
+        return nil;
+    } else {
+        YTKKeyValueItem *item = [[YTKKeyValueItem alloc] init];
+        item.createdTime = createdTime;
+        item.tableName = tableName;
+        item.itemId = objectId;
+        item.itemObject = object;
+        
+        return item;
     }
 }
 
@@ -185,18 +240,19 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         item.itemId = objectId;
         item.itemObject = result;
         item.createdTime = createdTime;
+        item.tableName = tableName;
         return item;
     } else {
         return nil;
     }
 }
 
-- (void)putString:(NSString *)string withId:(NSString *)stringId intoTable:(NSString *)tableName {
+- (YTKKeyValueItem *)putString:(NSString *)string withId:(NSString *)stringId intoTable:(NSString *)tableName {
     if (string == nil) {
         debugLog(@"error, string is nil");
-        return;
+        return nil;
     }
-    [self putObject:@[string] withId:stringId intoTable:tableName];
+    return [self putObject:@[string] withId:stringId intoTable:tableName];
 }
 
 - (NSString *)getStringById:(NSString *)stringId fromTable:(NSString *)tableName {
@@ -207,12 +263,12 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     return nil;
 }
 
-- (void)putNumber:(NSNumber *)number withId:(NSString *)numberId intoTable:(NSString *)tableName {
+- (YTKKeyValueItem *)putNumber:(NSNumber *)number withId:(NSString *)numberId intoTable:(NSString *)tableName {
     if (number == nil) {
         debugLog(@"error, number is nil");
-        return;
+        return nil;
     }
-    [self putObject:@[number] withId:numberId intoTable:tableName];
+    return [self putObject:@[number] withId:numberId intoTable:tableName];
 }
 
 - (NSNumber *)getNumberById:(NSString *)numberId fromTable:(NSString *)tableName {

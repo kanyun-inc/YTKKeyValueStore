@@ -80,6 +80,7 @@
   }
 
   if (deleteKey) {
+    [store close];
     [manager.stores removeObjectForKey:deleteKey];
   }
 }
