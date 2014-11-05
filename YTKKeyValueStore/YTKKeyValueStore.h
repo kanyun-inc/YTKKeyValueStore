@@ -12,6 +12,10 @@
 
 @interface NSMutableDictionary(YTKKeyValueStore)
 
+- (YTKKeyValueItem*)initKeyValueItemWithPath:(NSString *)path;
+- (void)cleanObject;
+- (void)loadObject;
+
 @property (strong, nonatomic) NSString *tableName;
 @property (strong, nonatomic) NSString *itemId;
 @property (strong, nonatomic) id itemObject;
@@ -21,6 +25,8 @@
 
 
 @interface YTKKeyValueStore : NSObject
+
+@property (nonatomic, strong) NSString* dbPath;
 
 - (id)initDBWithName:(NSString *)dbName;
 

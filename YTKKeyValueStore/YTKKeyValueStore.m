@@ -9,6 +9,7 @@
 #import "YTKKeyValueStore.h"
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
+#import "YTKKeyValueManager.h"
 
 #define KeyValueItemType @"KeyValueItemType"
 
@@ -26,26 +27,36 @@
 
 @implementation NSMutableDictionary(YTKKeyValueStore)
 
+- (YTKKeyValueItem*)initKeyValueItemWithPath:(NSString *)path
+{
+    self = [self init];
+    if (self) {
+        [self setValue:path forKey:@"YTKKeyValueStorePath"];
+    }
+    
+    return self;
+}
+
 - (void)setTableName:(NSString *)tableName
 {
-    [self setValue:tableName forKey:@"tableName"];
+    [self setValue:tableName forKey:@"YTKKeyValueStoreTableName"];
 }
 
 -(NSString *)tableName
 {
-    return [self objectForKey:@"tableName"];
+    return [self objectForKey:@"YTKKeyValueStoreTableName"];
 }
 
 - (void)setCreatedTime:(NSDate *)createdTime
 {
     if (createdTime) {
-        [self setValue:@(createdTime.timeIntervalSince1970) forKey:@"createdTime"];
+        [self setValue:@(createdTime.timeIntervalSince1970) forKey:@"YTKKeyValueStoreCreatedTime"];
     }
 }
 
 - (NSDate *)createdTime
 {
-    NSNumber *timeInterval = [self objectForKey:@"createdTime"];
+    NSNumber *timeInterval = [self objectForKey:@"YTKKeyValueStoreCreatedTime"];
     if (timeInterval) {
         return [NSDate dateWithTimeIntervalSince1970:[timeInterval floatValue]];
 
@@ -56,22 +67,42 @@
 
 - (void)setItemId:(NSString *)itemId
 {
-    [self setValue:itemId forKey:@"itemId"];
+    [self setValue:itemId forKey:@"YTKKeyValueStoreItemId"];
 }
 
 - (NSString *)itemId
 {
-    return [self objectForKey:@"itemId"];
+    return [self objectForKey:@"YTKKeyValueStoreItemId"];
 }
 
 - (void)setItemObject:(id )itemObject
 {
-    [self setValue:itemObject forKey:@"itemObject"];
+    [self setValue:itemObject forKey:@"YTKKeyValueStoreItemObject"];
 }
 
 - (id)itemObject
 {
-    return [self objectForKey:@"itemObject"];
+    return [self objectForKey:@"YTKKeyValueStoreItemObject"];
+}
+
+- (void)cleanObject
+{
+    [self removeObjectForKey:@"YTKKeyValueStoreItemObject"];
+}
+
+- (void)loadObject
+{
+    NSString * dbPath = [self objectForKey:@"YTKKeyValueStorePath"];
+    if (dbPath) {
+        YTKKeyValueStore* store = [YTKKeyValueManager getKeyValueStoreWithPath:dbPath];
+        if (store) {
+            YTKKeyValueItem*item = [store getYTKKeyValueItemById:self.itemId fromTable:self.tableName];
+            self.itemObject = item.itemObject;
+            item = nil;
+        }
+    } else {
+        debugLog(@"dbPath is empty");
+    }
 }
 
 @end
@@ -128,6 +159,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         if (_dbQueue) {
             [self close];
         }
+        _dbPath = dbPath;
         _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
     }
     return self;
@@ -140,6 +172,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         if (_dbQueue) {
             [self close];
         }
+        _dbPath = dbPath;
         _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
     }
     return self;
@@ -194,7 +227,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         debugLog(@"ERROR, failed to insert/replace into table: %@", tableName);
         return nil;
     } else {
-        YTKKeyValueItem *item = [[YTKKeyValueItem alloc] init];
+        YTKKeyValueItem *item = [[YTKKeyValueItem alloc] initKeyValueItemWithPath:self.dbPath];
         item.createdTime = createdTime;
         item.tableName = tableName;
         item.itemId = objectId;
@@ -236,7 +269,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
             debugLog(@"ERROR, faild to prase to json");
             return nil;
         }
-        YTKKeyValueItem * item = [[YTKKeyValueItem alloc] init];
+        YTKKeyValueItem * item = [[YTKKeyValueItem alloc] initKeyValueItemWithPath:self.dbPath];
         item.itemId = objectId;
         item.itemObject = result;
         item.createdTime = createdTime;
@@ -288,10 +321,11 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     [_dbQueue inDatabase:^(FMDatabase *db) {
         FMResultSet * rs = [db executeQuery:sql];
         while ([rs next]) {
-            YTKKeyValueItem * item = [[YTKKeyValueItem alloc] init];
+            YTKKeyValueItem * item = [[YTKKeyValueItem alloc] initKeyValueItemWithPath:self.dbPath];
             item.itemId = [rs stringForColumn:@"id"];
             item.itemObject = [rs stringForColumn:@"json"];
             item.createdTime = [rs dateForColumn:@"createdTime"];
+            item.tableName = tableName;
             [result addObject:item];
         }
         [rs close];
