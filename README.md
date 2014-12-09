@@ -1,3 +1,9 @@
+YTKKeyValueStore
+==========
+
+![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
+![Pod version](http://img.shields.io/cocoapods/v/YTKKeyValueStore.svg?style=flat)
+![Platform info](http://img.shields.io/cocoapods/p/YTKKeyValueStore.svg?style=flat)
 
 ## 前言
 
@@ -42,11 +48,13 @@ NSLog(@"query data result: %@", queryUser);
 
 ## 集成说明
 
-使用本项目，你需要将开源代码中的`YTKKeyValueStore.h`和`YTKKeyValueStore.m`添加到你的工程中，并且在工程设置的`Link Binary With Libraries`中，增加`libsqlite3.dylib`，如下图所示：
+你可以在 Podfile 中加入下面一行代码来使用YTKKeyValueStore
+
+    pod 'YTKKeyValueStore'
+
+你也可以手动添加源码使用本项目，将开源代码中的`YTKKeyValueStore.h`和`YTKKeyValueStore.m`添加到你的工程中，并且在工程设置的`Link Binary With Libraries`中，增加`libsqlite3.dylib`，如下图所示：
 
 ![](http://blog.devtang.com/images/key-value-store-setup.jpg)
-
-由于时间关系，当前还未提供Cocoapods方式集成。
 
 ## 使用说明
 
