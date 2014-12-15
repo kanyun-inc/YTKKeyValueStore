@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AA16E231A3E8FFA00EC589F /* YTKKeyValueStore_Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA16E221A3E8FFA00EC589F /* YTKKeyValueStore_Swift.swift */; };
+		1AA16E251A3E915200EC589F /* SwiftDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA16E241A3E915200EC589F /* SwiftDemo.swift */; };
 		4597AE5A19DEDFB30028ECAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE5919DEDFB30028ECAC /* main.m */; };
 		4597AE5D19DEDFB30028ECAC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE5C19DEDFB30028ECAC /* AppDelegate.m */; };
 		4597AE6019DEDFB30028ECAC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE5F19DEDFB30028ECAC /* ViewController.m */; };
@@ -34,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AA16E211A3E8FFA00EC589F /* YTKKeyValueStore-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTKKeyValueStore-Bridging-Header.h"; sourceTree = "<group>"; };
+		1AA16E221A3E8FFA00EC589F /* YTKKeyValueStore_Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YTKKeyValueStore_Swift.swift; sourceTree = "<group>"; };
+		1AA16E241A3E915200EC589F /* SwiftDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDemo.swift; sourceTree = "<group>"; };
 		4597AE5419DEDFB30028ECAC /* YTKKeyValueStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTKKeyValueStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4597AE5819DEDFB30028ECAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4597AE5919DEDFB30028ECAC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -107,6 +112,8 @@
 				4597AE9019DEE0D90028ECAC /* FMDB */,
 				4597AE7D19DEDFC80028ECAC /* YTKKeyValueStore.h */,
 				4597AE7E19DEDFC80028ECAC /* YTKKeyValueStore.m */,
+				1AA16E221A3E8FFA00EC589F /* YTKKeyValueStore_Swift.swift */,
+				1AA16E241A3E915200EC589F /* SwiftDemo.swift */,
 				4597AE5B19DEDFB30028ECAC /* AppDelegate.h */,
 				4597AE5C19DEDFB30028ECAC /* AppDelegate.m */,
 				4597AE5E19DEDFB30028ECAC /* ViewController.h */,
@@ -115,6 +122,7 @@
 				4597AE6419DEDFB30028ECAC /* Images.xcassets */,
 				4597AE6619DEDFB30028ECAC /* LaunchScreen.xib */,
 				4597AE5719DEDFB30028ECAC /* Supporting Files */,
+				1AA16E211A3E8FFA00EC589F /* YTKKeyValueStore-Bridging-Header.h */,
 			);
 			path = YTKKeyValueStore;
 			sourceTree = "<group>";
@@ -271,7 +279,9 @@
 				4597AE9E19DEE0D90028ECAC /* FMDatabasePool.m in Sources */,
 				4597AEA019DEE0D90028ECAC /* FMResultSet.m in Sources */,
 				4597AE5A19DEDFB30028ECAC /* main.m in Sources */,
+				1AA16E231A3E8FFA00EC589F /* YTKKeyValueStore_Swift.swift in Sources */,
 				4597AE9D19DEE0D90028ECAC /* FMDatabaseAdditions.m in Sources */,
+				1AA16E251A3E915200EC589F /* SwiftDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,10 +403,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = YTKKeyValueStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "YTKKeyValueStore/YTKKeyValueStore-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -404,10 +417,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = YTKKeyValueStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "YTKKeyValueStore/YTKKeyValueStore-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -464,6 +479,7 @@
 				4597AE7919DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4597AE7A19DEDFB30028ECAC /* Build configuration list for PBXNativeTarget "YTKKeyValueStoreTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +488,7 @@
 				4597AE7C19DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

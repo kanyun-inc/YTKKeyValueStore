@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "YTKKeyValueStore.h"
 
+#import "YTKKeyValueStore-Swift.h"
 @interface AppDelegate ()
 
 @end
@@ -28,6 +29,8 @@
     NSDictionary *queryUser = [store getObjectById:key fromTable:tableName];
     NSLog(@"query data result: %@", queryUser);
     
+    // Swift Demo
+    [SwiftDemo test];
     return YES;
 }
 
