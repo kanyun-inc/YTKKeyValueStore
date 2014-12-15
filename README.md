@@ -131,10 +131,8 @@ NSString *tableName = @"user_table";
 
 由于`YTKKeyValueItem`类带有`createdTime`字段，可以获得该条数据的插入（或更新）时间，以便上层做复杂的处理（例如用来做缓存过期逻辑）。
 
-## 协议
+## Swift版本
 
-YTKKeyValueStore 被许可在 MIT 协议下使用。查阅 LICENSE 文件来获得更多信息。
+感谢 [sgxiang](https://github.com/sgxiang) 提供了对应的 Swift 版本：https://github.com/sgxiang/YTKKeyValueStore_Swift
 
-## 其它
 
-两年前写过不少测试用例，后来给弄丢了，所以现在开项项目中还没有测试用例。由于时间关系，更详细的使用说明稍后会更新到项目中。
