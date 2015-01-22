@@ -8,6 +8,7 @@
 
 #import "YTKKeyValueStore.h"
 #import "FMDatabase.h"
+#import "FMDatabaseAdditions.h"
 #import "FMDatabaseQueue.h"
 
 #ifdef DEBUG
@@ -111,6 +112,20 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     if (!result) {
         debugLog(@"ERROR, failed to create table: %@", tableName);
     }
+}
+
+- (BOOL)isTableExists:(NSString *)tableName{
+    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+        return NO;
+    }
+    __block BOOL result;
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        result = [db tableExists:tableName];
+    }];
+    if (!result) {
+        debugLog(@"ERROR, table: %@ not exists in current DB", tableName);
+    }
+    return result;
 }
 
 - (void)clearTable:(NSString *)tableName {
