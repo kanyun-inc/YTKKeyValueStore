@@ -25,6 +25,8 @@
 
 - (void)createTableWithName:(NSString *)tableName;
 
+- (BOOL)isTableExists:(NSString *)tableName;
+
 - (void)clearTable:(NSString *)tableName;
 
 - (void)close;
