@@ -45,13 +45,14 @@ static NSString *const CREATE_TABLE_SQL =
 @"CREATE TABLE IF NOT EXISTS %@ ( \
 id TEXT NOT NULL, \
 json TEXT NOT NULL, \
+type integer NOT NULL, \
 createdTime TEXT NOT NULL, \
 PRIMARY KEY(id)) \
 ";
 
-static NSString *const UPDATE_ITEM_SQL = @"REPLACE INTO %@ (id, json, createdTime) values (?, ?, ?)";
+static NSString *const UPDATE_ITEM_SQL = @"REPLACE INTO %@ (id, json, type, createdTime) values (?, ?, ?, ?)";
 
-static NSString *const QUERY_ITEM_SQL = @"SELECT json, createdTime from %@ where id = ? Limit 1";
+static NSString *const QUERY_ITEM_SQL = @"SELECT json, type, createdTime from %@ where id = ? Limit 1";
 
 static NSString *const SELECT_ALL_SQL = @"SELECT * from %@";
 
@@ -142,22 +143,49 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
 }
 
+- (StoreValueType)typeWithValue:(id)value {
+    
+    if ([value isKindOfClass:[NSString class]]) {
+        return kStoreValueType_String;
+    }else if ([value isKindOfClass:[NSNumber class]]) {
+        return kStoreValueType_Number;
+    }else{
+        return kStoreValueType_DA;
+    }
+}
+
 - (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
-    NSError * error;
-    NSData * data = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
-    if (error) {
-        debugLog(@"ERROR, faild to get json data");
-        return;
+    StoreValueType type = [self typeWithValue:object];
+    id content = @"3种数据以外";
+    
+    if (type == kStoreValueType_String || type == kStoreValueType_DA) {
+        content = object;
     }
-    NSString * jsonString = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)];
+    //  number => array
+    if (type == kStoreValueType_Number) {
+        content = @[object];
+    }
+    
+    //  content 最终都是字符串
+    if (type == kStoreValueType_Number || type == kStoreValueType_DA) {
+        NSError * error;
+        NSData * data = [NSJSONSerialization dataWithJSONObject:content options:0 error:&error];
+        if (error) {
+            debugLog(@"ERROR, faild to get json data");
+            return;
+        }
+        content = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)];
+    }
+    
     NSDate * createdTime = [NSDate date];
     NSString * sql = [NSString stringWithFormat:UPDATE_ITEM_SQL, tableName];
+    
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        result = [db executeUpdate:sql, objectId, jsonString, createdTime];
+        result = [db executeUpdate:sql, objectId, content, @(type), createdTime];
     }];
     if (!result) {
         debugLog(@"ERROR, failed to insert/replace into table: %@", tableName);
@@ -178,28 +206,46 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         return nil;
     }
     NSString * sql = [NSString stringWithFormat:QUERY_ITEM_SQL, tableName];
-    __block NSString * json = nil;
+    __block NSString * content = nil;
     __block NSDate * createdTime = nil;
+    __block NSInteger type = 0;
     [_dbQueue inDatabase:^(FMDatabase *db) {
         FMResultSet * rs = [db executeQuery:sql, objectId];
         if ([rs next]) {
-            json = [rs stringForColumn:@"json"];
+            type = [rs intForColumn:@"type"];
+            content = [rs stringForColumn:@"json"];
             createdTime = [rs dateForColumn:@"createdTime"];
         }
         [rs close];
     }];
-    if (json) {
-        NSError * error;
-        id result = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:(NSJSONReadingAllowFragments) error:&error];
-        if (error) {
-            debugLog(@"ERROR, faild to prase to json");
-            return nil;
+    
+    if (content) {
+        
+        id result = nil;
+        if (type == kStoreValueType_String) {
+            result = content;
         }
+        
+        //  numuber = array[0]
+        if (type == kStoreValueType_DA || type == kStoreValueType_Number) {
+            NSError * error;
+            result = [NSJSONSerialization JSONObjectWithData:[content dataUsingEncoding:NSUTF8StringEncoding]
+                                                     options:(NSJSONReadingAllowFragments) error:&error];
+            if (error) {
+                debugLog(@"ERROR, faild to prase to json");
+                return nil;
+            }
+        }
+        
+        if (type == kStoreValueType_Number) {
+            result = [result objectAtIndex:0];
+        }
+        
         YTKKeyValueItem * item = [[YTKKeyValueItem alloc] init];
         item.itemId = objectId;
         item.itemObject = result;
         item.createdTime = createdTime;
+        item.type = type;
         return item;
     } else {
         return nil;
