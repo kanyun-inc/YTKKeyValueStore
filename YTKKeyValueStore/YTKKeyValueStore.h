@@ -49,6 +49,8 @@
 
 - (NSArray *)getAllItemsFromTable:(NSString *)tableName;
 
+- (NSUInteger)getCountFromTable:(NSString *)tableName;
+
 - (void)deleteObjectById:(NSString *)objectId fromTable:(NSString *)tableName;
 
 - (void)deleteObjectsByIdArray:(NSArray *)objectIdArray fromTable:(NSString *)tableName;
