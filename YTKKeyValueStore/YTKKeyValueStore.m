@@ -282,7 +282,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     [_dbQueue inDatabase:^(FMDatabase *db) {
         FMResultSet * rs = [db executeQuery:sql];
         if ([rs next]) {
-            num = [rs longForColumn:@"num"];
+            num = [rs unsignedLongLongIntForColumn:@"num"];
         }
         [rs close];
     }];
