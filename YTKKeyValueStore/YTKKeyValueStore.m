@@ -25,7 +25,7 @@
 @implementation YTKKeyValueItem
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"id=%@, value=%@, timeStamp=%@", _itemId, _itemObject, _createdTime];
+    return [NSString stringWithFormat:@"id=%@, value=%@, timeStamp=%@", _itemID, _itemObject, _createdTime];
 }
 
 @end
@@ -135,18 +135,19 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }else if ([value isKindOfClass:[NSNumber class]]) {
         return kStoreValueType_Number;
     }else{
-        return kStoreValueType_DA;
+        return kStoreValueType_Collection;
     }
 }
 
-- (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName {
+- (void)putObject:(id)object withID:(NSString *)objectID intoTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
     StoreValueType type = [self typeWithValue:object];
     id content = @"3种数据以外";
     
-    if (type == kStoreValueType_String || type == kStoreValueType_DA) {
+    
+    if (type == kStoreValueType_String || type == kStoreValueType_Collection) {
         content = object;
     }
     //  number => array
@@ -155,7 +156,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
     
     //  content 最终都是字符串
-    if (type == kStoreValueType_Number || type == kStoreValueType_DA) {
+    if (type == kStoreValueType_Number || type == kStoreValueType_Collection) {
         NSError * error;
         NSData * data = [NSJSONSerialization dataWithJSONObject:content options:0 error:&error];
         if (error) {
@@ -170,15 +171,15 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        result = [db executeUpdate:sql, objectId, content, @(type), createdTime];
+        result = [db executeUpdate:sql, objectID, content, @(type), createdTime];
     }];
     if (!result) {
         debugLog(@"ERROR, failed to insert/replace into table: %@", tableName);
     }
 }
 
-- (id)getObjectById:(NSString *)objectId fromTable:(NSString *)tableName {
-    YTKKeyValueItem * item = [self getYTKKeyValueItemById:objectId fromTable:tableName];
+- (id)objectByID:(NSString *)objectID fromTable:(NSString *)tableName {
+    YTKKeyValueItem * item = [self getYTKKeyValueItemByID:objectID fromTable:tableName];
     if (item) {
         return item.itemObject;
     } else {
@@ -186,7 +187,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
 }
 
-- (YTKKeyValueItem *)getYTKKeyValueItemById:(NSString *)objectId fromTable:(NSString *)tableName {
+- (YTKKeyValueItem *)getYTKKeyValueItemByID:(NSString *)objectID fromTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return nil;
     }
@@ -195,7 +196,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     __block NSDate * createdTime = nil;
     __block NSInteger type = 0;
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        FMResultSet * rs = [db executeQuery:sql, objectId];
+        FMResultSet * rs = [db executeQuery:sql, objectID];
         if ([rs next]) {
             type = [rs intForColumn:@"type"];
             content = [rs stringForColumn:@"json"];
@@ -212,7 +213,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         }
         
         //  numuber = array[0]
-        if (type == kStoreValueType_DA || type == kStoreValueType_Number) {
+        if (type == kStoreValueType_Collection || type == kStoreValueType_Number) {
             NSError * error;
             result = [NSJSONSerialization JSONObjectWithData:[content dataUsingEncoding:NSUTF8StringEncoding]
                                                      options:(NSJSONReadingAllowFragments) error:&error];
@@ -227,7 +228,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         }
         
         YTKKeyValueItem * item = [[YTKKeyValueItem alloc] init];
-        item.itemId = objectId;
+        item.itemID = objectID;
         item.itemObject = result;
         item.createdTime = createdTime;
         item.type = type;
@@ -237,32 +238,32 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
 }
 
-- (void)putString:(NSString *)string withId:(NSString *)stringId intoTable:(NSString *)tableName {
+- (void)putString:(NSString *)string withID:(NSString *)stringId intoTable:(NSString *)tableName {
     if (string == nil) {
         debugLog(@"error, string is nil");
         return;
     }
-    [self putObject:@[string] withId:stringId intoTable:tableName];
+    [self putObject:@[string] withID:stringId intoTable:tableName];
 }
 
-- (NSString *)getStringById:(NSString *)stringId fromTable:(NSString *)tableName {
-    NSArray * array = [self getObjectById:stringId fromTable:tableName];
+- (NSString *)getStringByID:(NSString *)stringId fromTable:(NSString *)tableName {
+    NSArray * array = [self objectByID:stringId fromTable:tableName];
     if (array && [array isKindOfClass:[NSArray class]]) {
         return array[0];
     }
     return nil;
 }
 
-- (void)putNumber:(NSNumber *)number withId:(NSString *)numberId intoTable:(NSString *)tableName {
+- (void)putNumber:(NSNumber *)number withID:(NSString *)numberId intoTable:(NSString *)tableName {
     if (number == nil) {
         debugLog(@"error, number is nil");
         return;
     }
-    [self putObject:@[number] withId:numberId intoTable:tableName];
+    [self putObject:@[number] withID:numberId intoTable:tableName];
 }
 
-- (NSNumber *)getNumberById:(NSString *)numberId fromTable:(NSString *)tableName {
-    NSArray * array = [self getObjectById:numberId fromTable:tableName];
+- (NSNumber *)getNumberByID:(NSString *)numberId fromTable:(NSString *)tableName {
+    NSArray * array = [self objectByID:numberId fromTable:tableName];
     if (array && [array isKindOfClass:[NSArray class]]) {
         return array[0];
     }
@@ -279,7 +280,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         FMResultSet * rs = [db executeQuery:sql];
         while ([rs next]) {
             YTKKeyValueItem * item = [[YTKKeyValueItem alloc] init];
-            item.itemId = [rs stringForColumn:@"id"];
+            item.itemID = [rs stringForColumn:@"id"];
             item.itemObject = [rs stringForColumn:@"json"];
             item.createdTime = [rs dateForColumn:@"createdTime"];
             [result addObject:item];
@@ -301,27 +302,27 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     return result;
 }
 
-- (void)deleteObjectById:(NSString *)objectId fromTable:(NSString *)tableName {
+- (void)deleteobjectByID:(NSString *)objectID fromTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
     NSString * sql = [NSString stringWithFormat:DELETE_ITEM_SQL, tableName];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        result = [db executeUpdate:sql, objectId];
+        result = [db executeUpdate:sql, objectID];
     }];
     if (!result) {
         debugLog(@"ERROR, failed to delete item from table: %@", tableName);
     }
 }
 
-- (void)deleteObjectsByIdArray:(NSArray *)objectIdArray fromTable:(NSString *)tableName {
+- (void)deleteObjectsByIDArray:(NSArray *)objectIDArray fromTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
     NSMutableString *stringBuilder = [NSMutableString string];
-    for (id objectId in objectIdArray) {
-        NSString *item = [NSString stringWithFormat:@" '%@' ", objectId];
+    for (id objectID in objectIDArray) {
+        NSString *item = [NSString stringWithFormat:@" '%@' ", objectID];
         if (stringBuilder.length == 0) {
             [stringBuilder appendString:item];
         } else {
@@ -339,12 +340,12 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
 }
 
-- (void)deleteObjectsByIdPrefix:(NSString *)objectIdPrefix fromTable:(NSString *)tableName {
+- (void)deleteObjectsByIDPrefix:(NSString *)objectIDPrefix fromTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
     NSString *sql = [NSString stringWithFormat:DELETE_ITEMS_WITH_PREFIX_SQL, tableName];
-    NSString *prefixArgument = [NSString stringWithFormat:@"%@%%", objectIdPrefix];
+    NSString *prefixArgument = [NSString stringWithFormat:@"%@%%", objectIDPrefix];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
         result = [db executeUpdate:sql, prefixArgument];

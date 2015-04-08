@@ -9,18 +9,17 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, StoreValueType) {
-    kStoreValueType_DA,
     kStoreValueType_String,
     kStoreValueType_Number,
+    kStoreValueType_Collection,   //  JSON, NSArray, NSDictionary, NSData ...
 };
 
 @interface YTKKeyValueItem : NSObject
 
-@property (strong, nonatomic) NSString *itemId;
+@property (strong, nonatomic) NSString *itemID;
 @property (strong, nonatomic) id itemObject;
 @property (assign, nonatomic) StoreValueType type;
 @property (strong, nonatomic) NSDate *createdTime;
-
 @end
 
 
@@ -40,29 +39,20 @@ typedef NS_ENUM(NSUInteger, StoreValueType) {
 
 - (StoreValueType)typeWithValue:(id)value;
 
-- (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName;
+- (void)putObject:(id)object withID:(NSString *)objectID intoTable:(NSString *)tableName;
 
-- (id)getObjectById:(NSString *)objectId fromTable:(NSString *)tableName;
+- (id)objectByID:(NSString *)objectID fromTable:(NSString *)tableName;
 
-- (YTKKeyValueItem *)getYTKKeyValueItemById:(NSString *)objectId fromTable:(NSString *)tableName;
-
-
-//- (void)putString:(NSString *)string withId:(NSString *)stringId intoTable:(NSString *)tableName;
-//
-//- (NSString *)getStringById:(NSString *)stringId fromTable:(NSString *)tableName;
-//
-//- (void)putNumber:(NSNumber *)number withId:(NSString *)numberId intoTable:(NSString *)tableName;
-//
-//- (NSNumber *)getNumberById:(NSString *)numberId fromTable:(NSString *)tableName;
+- (YTKKeyValueItem *)getYTKKeyValueItemByID:(NSString *)objectID fromTable:(NSString *)tableName;
 
 
 - (NSArray *)getAllItemsFromTable:(NSString *)tableName;
 
-- (void)deleteObjectById:(NSString *)objectId fromTable:(NSString *)tableName;
+- (void)deleteobjectByID:(NSString *)objectID fromTable:(NSString *)tableName;
 
-- (void)deleteObjectsByIdArray:(NSArray *)objectIdArray fromTable:(NSString *)tableName;
+- (void)deleteObjectsByIDArray:(NSArray *)objectIDArray fromTable:(NSString *)tableName;
 
-- (void)deleteObjectsByIdPrefix:(NSString *)objectIdPrefix fromTable:(NSString *)tableName;
+- (void)deleteObjectsByIDPrefix:(NSString *)objectIDPrefix fromTable:(NSString *)tableName;
 
 
 @end
