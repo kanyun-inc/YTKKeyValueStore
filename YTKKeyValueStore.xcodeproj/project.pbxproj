@@ -464,6 +464,7 @@
 				4597AE7919DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4597AE7A19DEDFB30028ECAC /* Build configuration list for PBXNativeTarget "YTKKeyValueStoreTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +473,7 @@
 				4597AE7C19DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

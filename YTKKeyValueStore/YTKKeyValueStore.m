@@ -9,6 +9,7 @@
 #import "YTKKeyValueStore.h"
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
+#import "FMDatabaseAdditions.h"
 
 #ifdef DEBUG
 #define debugLog(...)    NSLog(__VA_ARGS__)
@@ -38,7 +39,7 @@ typedef NS_ENUM(NSUInteger, StoreValueType) {
 @implementation YTKKeyValueItem
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"id=%@, value=%@, timeStamp=%@", _key, _value, _createdTime];
+    return [NSString stringWithFormat:@"id=%@, \nvalue=%@, \ntimeStamp=%@", _key, _value, _createdTime];
 }
 
 @end
@@ -98,6 +99,7 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
 }
 
 - (void)createTableWithName:(NSString *)tableName {
+    
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
@@ -112,7 +114,8 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
 }
 
 - (void)clearTableWithName:(NSString *)tableName {
-    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+    
+    if ([self tableExists:tableName]) {
         return;
     }
     NSString * sql = [NSString stringWithFormat:kClear_All_SQL, tableName];
@@ -123,6 +126,23 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
     if (!result) {
         debugLog(@"ERROR, failed to clear table: %@", tableName);
     }
+}
+
+- (BOOL)tableExists:(NSString *)tableName {
+    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+        return NO;
+    }
+    
+    __block BOOL result;
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        result = [db tableExists:tableName];
+    }];
+    
+    if (!result) {
+        debugLog(@"ERROR, table: %@ not exists in current DB", tableName);
+    }
+    
+    return result;
 }
 
 - (StoreValueType)typeWithValue:(id)value {
@@ -146,7 +166,7 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
 #pragma mark - custom table
 - (void)putValue:(id)value forKey:(NSString *)key intoTable:(NSString *)tableName {
     
-    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+    if ([self tableExists:tableName]) {
         return;
     }
     
@@ -193,9 +213,11 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
 }
 
 - (YTKKeyValueItem *)itemForKey:(NSString *)key fromTable:(NSString *)tableName {
-    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+    
+    if ([self tableExists:tableName]) {
         return nil;
     }
+    
     NSString * sql = [NSString stringWithFormat:kQuery_Item_SQL, tableName];
     __block NSString * content = nil;
     __block NSDate * createdTime = nil;
@@ -244,7 +266,8 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
 }
 
 - (NSArray *)allItemsFromTable:(NSString *)tableName {
-    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+    
+    if ([self tableExists:tableName]) {
         return nil;
     }
     NSString * sql = [NSString stringWithFormat:kSelect_All_SQL, tableName];
@@ -276,7 +299,8 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
 }
 
 - (void)removeValueForKey:(NSString *)key fromTable:(NSString *)tableName {
-    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+    
+    if ([self tableExists:tableName]) {
         return;
     }
     NSString * sql = [NSString stringWithFormat:kDelete_Item_SQL, tableName];
@@ -290,7 +314,8 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
 }
 
 - (void)removeValuesForKeys:(NSArray *)keys fromTable:(NSString *)tableName {
-    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+    
+    if ([self tableExists:tableName]) {
         return;
     }
     NSMutableString *stringBuilder = [NSMutableString string];
@@ -314,7 +339,8 @@ static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id
 }
 
 - (void)removeValuesByKeyPrefix:(NSString *)keyPrefix fromTable:(NSString *)tableName {
-    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+    
+    if ([self tableExists:tableName]) {
         return;
     }
     NSString *sql = [NSString stringWithFormat:kDelete_Items_With_Prefix_SQL, tableName];
