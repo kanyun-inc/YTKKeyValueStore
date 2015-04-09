@@ -24,11 +24,11 @@
     _tableName = @"test_table";
     _store = [[YTKKeyValueStore alloc] init];
     [_store createTableWithName:_tableName];
-    [_store clearTable:_tableName];
+    [_store clearTableWithName:_tableName];
 }
 
 - (void)tearDown {
-    [_store clearTable:_tableName];
+    [_store clearTableWithName:_tableName];
     [_store close];
     _store = nil;
     [super tearDown];
@@ -39,8 +39,8 @@
 //    NSString *key1 = @"key1";
 //    NSString *str2 = @"abc2";
 //    NSString *key2 = @"key2";
-//    [_store putString:str1 withID:key1 intoTable:_tableName];
-//    [_store putString:str2 withID:key2 intoTable:_tableName];
+//    [_store putString:str1 forKey:key1 intoTable:_tableName];
+//    [_store putString:str2 forKey:key2 intoTable:_tableName];
 //    
 //    NSString *result;
 //    result = [_store getStringByID:key1 fromTable:_tableName];
@@ -55,16 +55,16 @@
     NSString *key1 = @"key1";
     NSString *str2 = @"abc2";
     NSString *key2 = @"key2";
-    [_store putObject:str1 withID:key1 intoTable:_tableName];
-    [_store putObject:str2 withID:key2 intoTable:_tableName];
+    [_store putValue:str1 forKey:key1 intoTable:_tableName];
+    [_store putValue:str2 forKey:key2 intoTable:_tableName];
     
     NSString *result;
-    result = [_store objectByID:key1 fromTable:_tableName];
+    result = [_store valueForKey:key1 fromTable:_tableName];
     XCTAssertEqualObjects(str1, result);
-    result = [_store objectByID:key2 fromTable:_tableName];
+    result = [_store valueForKey:key2 fromTable:_tableName];
     XCTAssertEqualObjects(str2, result);
     
-    result = [_store objectByID:@"key3" fromTable:_tableName];
+    result = [_store valueForKey:@"key3" fromTable:_tableName];
     XCTAssertNil(result);
 }
 
@@ -73,8 +73,8 @@
 //    NSString *key1 = @"key1";
 //    NSNumber *number2 = @2;
 //    NSString *key2 = @"key2";
-//    [_store putNumber:number1 withID:key1 intoTable:_tableName];
-//    [_store putNumber:number2 withID:key2 intoTable:_tableName];
+//    [_store putNumber:number1 forKey:key1 intoTable:_tableName];
+//    [_store putNumber:number2 forKey:key2 intoTable:_tableName];
 //    
 //    NSNumber *result;
 //    result = [_store getNumberByID:key1 fromTable:_tableName];
@@ -90,16 +90,16 @@
     NSNumber *number2 = @2;
     NSString *key2 = @"key2";
 
-    [_store putObject:number1 withID:key1 intoTable:_tableName];
-    [_store putObject:number2 withID:key2 intoTable:_tableName];
+    [_store putValue:number1 forKey:key1 intoTable:_tableName];
+    [_store putValue:number2 forKey:key2 intoTable:_tableName];
     
     NSNumber *result;
-    result = [_store objectByID:key1 fromTable:_tableName];
+    result = [_store valueForKey:key1 fromTable:_tableName];
     XCTAssertEqualObjects(number1, result);
-    result = [_store objectByID:key2 fromTable:_tableName];
+    result = [_store valueForKey:key2 fromTable:_tableName];
     XCTAssertEqualObjects(number2, result);
     
-    result = [_store objectByID:@"key3" fromTable:_tableName];
+    result = [_store valueForKey:@"key3" fromTable:_tableName];
     XCTAssertNil(result);
 
 }

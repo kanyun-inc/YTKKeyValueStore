@@ -313,7 +313,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
 
 - (FMStatement*)cachedStatementForQuery:(NSString*)query {
 
-    NSMutableSet* statements = [_cachedStatements objectForKey:query];
+    NSMutableSet* statements = [_cachedStatements valueForKey:query];
 
     return [[statements objectsPassingTest:^BOOL(FMStatement* statement, BOOL *stop) {
 
@@ -329,7 +329,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
     query = [query copy]; // in case we got handed in a mutable string...
     [statement setQuery:query];
 
-    NSMutableSet* statements = [_cachedStatements objectForKey:query];
+    NSMutableSet* statements = [_cachedStatements valueForKey:query];
     if (!statements) {
         statements = [NSMutableSet set];
     }
@@ -787,7 +787,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
             NSString *parameterName = [[NSString alloc] initWithFormat:@":%@", dictionaryKey];
 
             if (_traceExecution) {
-                NSLog(@"%@ = %@", parameterName, [dictionaryArgs objectForKey:dictionaryKey]);
+                NSLog(@"%@ = %@", parameterName, [dictionaryArgs valueForKey:dictionaryKey]);
             }
 
             // Get the index for the parameter name.
@@ -797,7 +797,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
 
             if (namedIdx > 0) {
                 // Standard binding from here.
-                [self bindObject:[dictionaryArgs objectForKey:dictionaryKey] toColumn:namedIdx inStatement:pStmt];
+                [self bindObject:[dictionaryArgs valueForKey:dictionaryKey] toColumn:namedIdx inStatement:pStmt];
                 // increment the binding count, so our check below works out
                 idx++;
             }
@@ -969,7 +969,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
             NSString *parameterName = [[NSString alloc] initWithFormat:@":%@", dictionaryKey];
 
             if (_traceExecution) {
-                NSLog(@"%@ = %@", parameterName, [dictionaryArgs objectForKey:dictionaryKey]);
+                NSLog(@"%@ = %@", parameterName, [dictionaryArgs valueForKey:dictionaryKey]);
             }
             // Get the index for the parameter name.
             int namedIdx = sqlite3_bind_parameter_index(pStmt, [parameterName UTF8String]);
@@ -978,7 +978,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
 
             if (namedIdx > 0) {
                 // Standard binding from here.
-                [self bindObject:[dictionaryArgs objectForKey:dictionaryKey] toColumn:namedIdx inStatement:pStmt];
+                [self bindObject:[dictionaryArgs valueForKey:dictionaryKey] toColumn:namedIdx inStatement:pStmt];
 
                 // increment the binding count, so our check below works out
                 idx++;

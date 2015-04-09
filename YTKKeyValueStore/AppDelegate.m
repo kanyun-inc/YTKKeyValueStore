@@ -17,15 +17,25 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Demo
-    NSString *tableName = @"user_table";
-    YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initDBWithName:@"test.db"];
-    [store createTableWithName:tableName];
-    NSString *key = @"1";
-    NSDictionary *user = @{@"id": @1, @"name": @"tangqiao", @"age": @30};
-    [store putObject:user withID:key intoTable:tableName];
+
     
-    NSDictionary *queryUser = [store objectByID:key fromTable:tableName];
+    
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    path = [path stringByAppendingPathComponent:@"test.db"];
+    YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initWithDBWithPath:path];
+    
+    NSString *tableName = @"user_table";
+    [store createTableWithName:tableName];
+    
+    NSString *key = @"YourDefineKey";
+    NSDictionary *user = @{@"id": @1,
+                           @"name": @"tangqiao",
+                           @"age": @30};
+    
+    
+    [store putValue:user forKey:key intoTable:tableName];
+    
+    NSDictionary *queryUser = [store valueForKey:key fromTable:tableName];
     NSLog(@"query data result: %@", queryUser);
     
     return YES;
