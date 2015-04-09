@@ -11,6 +11,7 @@
 //  Help you store anything string data to sqlite.
 @interface YTKKeyValueStore : NSObject
 
+
 //  init & close
 - (id)initWithDBWithPath:(NSString *)dbPath;
 - (void)createTableWithName:(NSString *)tableName;
@@ -18,12 +19,12 @@
 - (void)close;
 
 
-//  Put & Get & use default table
+//  use default table
 - (void)putValue:(id)object forKey:(NSString *)key;
 - (id)valueForKey:(NSString *)key;
 
 
-//  Put & Get & custom table
+//  use custom table
 - (void)putValue:(id)object forKey:(NSString *)key intoTable:(NSString *)tableName;
 - (id)valueForKey:(NSString *)key fromTable:(NSString *)tableName;
 

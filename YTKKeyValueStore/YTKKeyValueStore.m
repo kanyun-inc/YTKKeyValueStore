@@ -24,7 +24,8 @@
 typedef NS_ENUM(NSUInteger, StoreValueType) {
     kStoreValueType_String,
     kStoreValueType_Number,
-    kStoreValueType_Collection,   //  JSON, NSArray, NSDictionary, NSData ...
+    kStoreValueType_Collection,     //  JSON, NSArray, NSDictionary, NSData ...
+    kStoreValueType_Error,          //  非法数据
 };
 
 @interface YTKKeyValueItem : NSObject
@@ -52,10 +53,10 @@ typedef NS_ENUM(NSUInteger, StoreValueType) {
 
 @implementation YTKKeyValueStore
 
-static NSString *const DEFAULT_DB_NAME = @"database.sqlite";
-static NSString *const DEFAULT_TABLE_NAME = @"store_table";
+static NSString *const kDefault_DB_Name = @"database.sqlite";
+static NSString *const kDefault_Table_Name = @"store_table";
 
-static NSString *const CREATE_TABLE_SQL =
+static NSString *const kCreate_Table_SQL =
 @"CREATE TABLE IF NOT EXISTS %@ ( \
 id TEXT NOT NULL, \
 json TEXT NOT NULL, \
@@ -64,19 +65,15 @@ createdTime TEXT NOT NULL, \
 PRIMARY KEY(id)) \
 ";
 
-static NSString *const UPDATE_ITEM_SQL = @"REPLACE INTO %@ (id, json, type, createdTime) values (?, ?, ?, ?)";
+static NSString *const kUpdate_Item_SQL = @"REPLACE INTO %@ (id, json, type, createdTime) values (?, ?, ?, ?)";
+static NSString *const kQuery_Item_SQL = @"SELECT json, type, createdTime from %@ where id = ? Limit 1";
 
-static NSString *const QUERY_ITEM_SQL = @"SELECT json, type, createdTime from %@ where id = ? Limit 1";
+static NSString *const kSelect_All_SQL = @"SELECT * from %@";
+static NSString *const kClear_All_SQL = @"DELETE from %@";
 
-static NSString *const SELECT_ALL_SQL = @"SELECT * from %@";
-
-static NSString *const CLEAR_ALL_SQL = @"DELETE from %@";
-
-static NSString *const DELETE_ITEM_SQL = @"DELETE from %@ where id = ?";
-
-static NSString *const DELETE_ITEMS_SQL = @"DELETE from %@ where id in ( %@ )";
-
-static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id like ? ";
+static NSString *const kDelete_Item_SQL = @"DELETE from %@ where id = ?";
+static NSString *const kDelete_Items_SQL = @"DELETE from %@ where id in ( %@ )";
+static NSString *const kDelete_Items_With_Prefix_SQL = @"DELETE from %@ where id like ? ";
 
 
 + (BOOL)checkTableName:(NSString *)tableName {
@@ -95,7 +92,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
             [self close];
         }
         _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
-        [self createTableWithName:DEFAULT_TABLE_NAME];
+        [self createTableWithName:kDefault_Table_Name];
     }
     return self;
 }
@@ -104,7 +101,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
-    NSString * sql = [NSString stringWithFormat:CREATE_TABLE_SQL, tableName];
+    NSString * sql = [NSString stringWithFormat:kCreate_Table_SQL, tableName];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
         result = [db executeUpdate:sql];
@@ -118,7 +115,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
-    NSString * sql = [NSString stringWithFormat:CLEAR_ALL_SQL, tableName];
+    NSString * sql = [NSString stringWithFormat:kClear_All_SQL, tableName];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
         result = [db executeUpdate:sql];
@@ -129,7 +126,6 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 }
 
 - (StoreValueType)typeWithValue:(id)value {
-    
     if ([value isKindOfClass:[NSString class]]) {
         return kStoreValueType_String;
     }else if ([value isKindOfClass:[NSNumber class]]) {
@@ -141,46 +137,46 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 
 #pragma mark - default table
 - (void)putValue:(id)value forKey:(NSString *)key {
-    [self putValue:value forKey:key intoTable:DEFAULT_TABLE_NAME];
+    [self putValue:value forKey:key intoTable:kDefault_Table_Name];
 }
 - (id)valueForKey:(NSString *)key {
-    return [self valueForKey:key fromTable:DEFAULT_TABLE_NAME];
+    return [self valueForKey:key fromTable:kDefault_Table_Name];
 }
 
 #pragma mark - custom table
 - (void)putValue:(id)value forKey:(NSString *)key intoTable:(NSString *)tableName {
+    
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
+    
     StoreValueType type = [self typeWithValue:value];
-    id content = @"3种数据以外";
-    
-    
-    if (type == kStoreValueType_String || type == kStoreValueType_Collection) {
-        content = value;
+    if (type == kStoreValueType_Error) {
+        return;
     }
+    
     //  number => array
     if (type == kStoreValueType_Number) {
-        content = @[value];
+        value = @[value];
     }
     
-    //  content 最终都是字符串
+    //  NSData, NSNumber, NSArray, NSDictionary => JSON String
     if (type == kStoreValueType_Number || type == kStoreValueType_Collection) {
         NSError * error;
-        NSData * data = [NSJSONSerialization dataWithJSONObject:content options:0 error:&error];
+        NSData * data = [NSJSONSerialization dataWithJSONObject:value options:0 error:&error];
         if (error) {
             debugLog(@"ERROR, faild to get json data");
             return;
         }
-        content = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)];
+        value = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)];
     }
     
     NSDate * createdTime = [NSDate date];
-    NSString * sql = [NSString stringWithFormat:UPDATE_ITEM_SQL, tableName];
+    NSString * sql = [NSString stringWithFormat:kUpdate_Item_SQL, tableName];
     
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        result = [db executeUpdate:sql, key, content, @(type), createdTime];
+        result = [db executeUpdate:sql, key, value, @(type), createdTime];
     }];
     if (!result) {
         debugLog(@"ERROR, failed to insert/replace into table: %@", tableName);
@@ -188,7 +184,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 }
 
 - (id)valueForKey:(NSString *)key fromTable:(NSString *)tableName {
-    YTKKeyValueItem * item = [self itemByID:key fromTable:tableName];
+    YTKKeyValueItem * item = [self itemForKey:key fromTable:tableName];
     if (item) {
         return item.value;
     } else {
@@ -196,11 +192,11 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
 }
 
-- (YTKKeyValueItem *)itemByID:(NSString *)key fromTable:(NSString *)tableName {
+- (YTKKeyValueItem *)itemForKey:(NSString *)key fromTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return nil;
     }
-    NSString * sql = [NSString stringWithFormat:QUERY_ITEM_SQL, tableName];
+    NSString * sql = [NSString stringWithFormat:kQuery_Item_SQL, tableName];
     __block NSString * content = nil;
     __block NSDate * createdTime = nil;
     __block NSInteger type = 0;
@@ -251,7 +247,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return nil;
     }
-    NSString * sql = [NSString stringWithFormat:SELECT_ALL_SQL, tableName];
+    NSString * sql = [NSString stringWithFormat:kSelect_All_SQL, tableName];
     __block NSMutableArray * result = [NSMutableArray array];
     [_dbQueue inDatabase:^(FMDatabase *db) {
         FMResultSet * rs = [db executeQuery:sql];
@@ -283,7 +279,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
-    NSString * sql = [NSString stringWithFormat:DELETE_ITEM_SQL, tableName];
+    NSString * sql = [NSString stringWithFormat:kDelete_Item_SQL, tableName];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
         result = [db executeUpdate:sql, key];
@@ -307,7 +303,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
             [stringBuilder appendString:item];
         }
     }
-    NSString *sql = [NSString stringWithFormat:DELETE_ITEMS_SQL, tableName, stringBuilder];
+    NSString *sql = [NSString stringWithFormat:kDelete_Items_SQL, tableName, stringBuilder];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
         result = [db executeUpdate:sql];
@@ -321,7 +317,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
-    NSString *sql = [NSString stringWithFormat:DELETE_ITEMS_WITH_PREFIX_SQL, tableName];
+    NSString *sql = [NSString stringWithFormat:kDelete_Items_With_Prefix_SQL, tableName];
     NSString *prefixArgument = [NSString stringWithFormat:@"%@%%", keyPrefix];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
