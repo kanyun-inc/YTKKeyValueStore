@@ -21,7 +21,11 @@
 
 - (id)initDBWithName:(NSString *)dbName;
 
+- (id)initDBWithName:(NSString *)dbName withEncryptKey:(NSString *)encryptKey;
+
 - (id)initWithDBWithPath:(NSString *)dbPath;
+
+- (id)initWithDBWithPath:(NSString *)dbPath withEncryptKey:(NSString *)encryptKey;
 
 - (void)createTableWithName:(NSString *)tableName;
 
