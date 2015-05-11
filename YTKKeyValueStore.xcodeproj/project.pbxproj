@@ -15,12 +15,8 @@
 		4597AE6819DEDFB30028ECAC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4597AE6619DEDFB30028ECAC /* LaunchScreen.xib */; };
 		4597AE7419DEDFB30028ECAC /* YTKKeyValueStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE7319DEDFB30028ECAC /* YTKKeyValueStoreTests.m */; };
 		4597AE7F19DEDFC80028ECAC /* YTKKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE7E19DEDFC80028ECAC /* YTKKeyValueStore.m */; };
-		4597AE9C19DEE0D90028ECAC /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9219DEE0D90028ECAC /* FMDatabase.m */; };
-		4597AE9D19DEE0D90028ECAC /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9419DEE0D90028ECAC /* FMDatabaseAdditions.m */; };
-		4597AE9E19DEE0D90028ECAC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9619DEE0D90028ECAC /* FMDatabasePool.m */; };
-		4597AE9F19DEE0D90028ECAC /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9819DEE0D90028ECAC /* FMDatabaseQueue.m */; };
-		4597AEA019DEE0D90028ECAC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9B19DEE0D90028ECAC /* FMResultSet.m */; };
 		4597AEA219DEE0EC0028ECAC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4597AEA119DEE0EC0028ECAC /* libsqlite3.dylib */; };
+		DC9A700F7679AB1948E16B5B /* libPods-YTKKeyValueStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EADEAD6E47B2EFD6A6A7B68 /* libPods-YTKKeyValueStore.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0629D9256905EA8FD5624915 /* Pods-YTKKeyValueStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YTKKeyValueStore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YTKKeyValueStore/Pods-YTKKeyValueStore.debug.xcconfig"; sourceTree = "<group>"; };
+		0EADEAD6E47B2EFD6A6A7B68 /* libPods-YTKKeyValueStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YTKKeyValueStore.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4597AE5419DEDFB30028ECAC /* YTKKeyValueStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTKKeyValueStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4597AE5819DEDFB30028ECAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4597AE5919DEDFB30028ECAC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -49,18 +47,8 @@
 		4597AE7319DEDFB30028ECAC /* YTKKeyValueStoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueStoreTests.m; sourceTree = "<group>"; };
 		4597AE7D19DEDFC80028ECAC /* YTKKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKKeyValueStore.h; sourceTree = "<group>"; };
 		4597AE7E19DEDFC80028ECAC /* YTKKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueStore.m; sourceTree = "<group>"; };
-		4597AE9119DEE0D90028ECAC /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		4597AE9219DEE0D90028ECAC /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		4597AE9319DEE0D90028ECAC /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		4597AE9419DEE0D90028ECAC /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		4597AE9519DEE0D90028ECAC /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		4597AE9619DEE0D90028ECAC /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		4597AE9719DEE0D90028ECAC /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		4597AE9819DEE0D90028ECAC /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		4597AE9919DEE0D90028ECAC /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		4597AE9A19DEE0D90028ECAC /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		4597AE9B19DEE0D90028ECAC /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		4597AEA119DEE0EC0028ECAC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		970E01D79FF8AE242549E936 /* Pods-YTKKeyValueStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YTKKeyValueStore.release.xcconfig"; path = "Pods/Target Support Files/Pods-YTKKeyValueStore/Pods-YTKKeyValueStore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +57,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4597AEA219DEE0EC0028ECAC /* libsqlite3.dylib in Frameworks */,
+				DC9A700F7679AB1948E16B5B /* libPods-YTKKeyValueStore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +71,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2631E9A9EB47ADA85F01E013 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0629D9256905EA8FD5624915 /* Pods-YTKKeyValueStore.debug.xcconfig */,
+				970E01D79FF8AE242549E936 /* Pods-YTKKeyValueStore.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		4597AE4B19DEDFB30028ECAC = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +87,8 @@
 				4597AE5619DEDFB30028ECAC /* YTKKeyValueStore */,
 				4597AE7019DEDFB30028ECAC /* YTKKeyValueStoreTests */,
 				4597AE5519DEDFB30028ECAC /* Products */,
+				2631E9A9EB47ADA85F01E013 /* Pods */,
+				4CAF54F2D36DC6911983C96E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,7 +104,6 @@
 		4597AE5619DEDFB30028ECAC /* YTKKeyValueStore */ = {
 			isa = PBXGroup;
 			children = (
-				4597AE9019DEE0D90028ECAC /* FMDB */,
 				4597AE7D19DEDFC80028ECAC /* YTKKeyValueStore.h */,
 				4597AE7E19DEDFC80028ECAC /* YTKKeyValueStore.m */,
 				4597AE5B19DEDFB30028ECAC /* AppDelegate.h */,
@@ -145,22 +144,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4597AE9019DEE0D90028ECAC /* FMDB */ = {
+		4CAF54F2D36DC6911983C96E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4597AE9119DEE0D90028ECAC /* FMDatabase.h */,
-				4597AE9219DEE0D90028ECAC /* FMDatabase.m */,
-				4597AE9319DEE0D90028ECAC /* FMDatabaseAdditions.h */,
-				4597AE9419DEE0D90028ECAC /* FMDatabaseAdditions.m */,
-				4597AE9519DEE0D90028ECAC /* FMDatabasePool.h */,
-				4597AE9619DEE0D90028ECAC /* FMDatabasePool.m */,
-				4597AE9719DEE0D90028ECAC /* FMDatabaseQueue.h */,
-				4597AE9819DEE0D90028ECAC /* FMDatabaseQueue.m */,
-				4597AE9919DEE0D90028ECAC /* FMDB.h */,
-				4597AE9A19DEE0D90028ECAC /* FMResultSet.h */,
-				4597AE9B19DEE0D90028ECAC /* FMResultSet.m */,
+				0EADEAD6E47B2EFD6A6A7B68 /* libPods-YTKKeyValueStore.a */,
 			);
-			path = FMDB;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,9 +159,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4597AE7719DEDFB30028ECAC /* Build configuration list for PBXNativeTarget "YTKKeyValueStore" */;
 			buildPhases = (
+				41947A428E9B1D841A63AF8D /* Check Pods Manifest.lock */,
 				4597AE5019DEDFB30028ECAC /* Sources */,
 				4597AE5119DEDFB30028ECAC /* Frameworks */,
 				4597AE5219DEDFB30028ECAC /* Resources */,
+				14FA5044806AE8A2B92A3882 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -258,20 +249,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		14FA5044806AE8A2B92A3882 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YTKKeyValueStore/Pods-YTKKeyValueStore-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		41947A428E9B1D841A63AF8D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4597AE5019DEDFB30028ECAC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4597AE6019DEDFB30028ECAC /* ViewController.m in Sources */,
-				4597AE9F19DEE0D90028ECAC /* FMDatabaseQueue.m in Sources */,
 				4597AE5D19DEDFB30028ECAC /* AppDelegate.m in Sources */,
 				4597AE7F19DEDFC80028ECAC /* YTKKeyValueStore.m in Sources */,
-				4597AE9C19DEE0D90028ECAC /* FMDatabase.m in Sources */,
-				4597AE9E19DEE0D90028ECAC /* FMDatabasePool.m in Sources */,
-				4597AEA019DEE0D90028ECAC /* FMResultSet.m in Sources */,
 				4597AE5A19DEDFB30028ECAC /* main.m in Sources */,
-				4597AE9D19DEE0D90028ECAC /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +410,7 @@
 		};
 		4597AE7819DEDFB30028ECAC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0629D9256905EA8FD5624915 /* Pods-YTKKeyValueStore.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YTKKeyValueStore/Info.plist;
@@ -402,6 +422,7 @@
 		};
 		4597AE7919DEDFB30028ECAC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 970E01D79FF8AE242549E936 /* Pods-YTKKeyValueStore.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YTKKeyValueStore/Info.plist;
@@ -464,6 +485,7 @@
 				4597AE7919DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4597AE7A19DEDFB30028ECAC /* Build configuration list for PBXNativeTarget "YTKKeyValueStoreTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +494,7 @@
 				4597AE7C19DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
