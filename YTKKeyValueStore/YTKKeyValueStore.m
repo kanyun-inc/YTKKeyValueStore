@@ -55,6 +55,8 @@ static NSString *const QUERY_ITEM_SQL = @"SELECT json, createdTime from %@ where
 
 static NSString *const SELECT_ALL_SQL = @"SELECT * from %@";
 
+static NSString *const COUNT_ALL_SQL = @"SELECT count(*) as num from %@";
+
 static NSString *const CLEAR_ALL_SQL = @"DELETE from %@";
 
 static NSString *const DELETE_ITEM_SQL = @"DELETE from %@ where id = ?";
@@ -268,6 +270,23 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         }
     }
     return result;
+}
+
+- (NSUInteger)getCountFromTable:(NSString *)tableName
+{
+    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+        return 0;
+    }
+    NSString * sql = [NSString stringWithFormat:COUNT_ALL_SQL, tableName];
+    __block NSInteger num = 0;
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet * rs = [db executeQuery:sql];
+        if ([rs next]) {
+            num = [rs unsignedLongLongIntForColumn:@"num"];
+        }
+        [rs close];
+    }];
+    return num;
 }
 
 - (void)deleteObjectById:(NSString *)objectId fromTable:(NSString *)tableName {
