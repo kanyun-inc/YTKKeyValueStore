@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C92970E1A090B7F0098DD16 /* YTKKeyValueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C92970D1A090B7F0098DD16 /* YTKKeyValueManager.m */; };
 		4597AE5A19DEDFB30028ECAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE5919DEDFB30028ECAC /* main.m */; };
 		4597AE5D19DEDFB30028ECAC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE5C19DEDFB30028ECAC /* AppDelegate.m */; };
 		4597AE6019DEDFB30028ECAC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE5F19DEDFB30028ECAC /* ViewController.m */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C92970C1A090B7F0098DD16 /* YTKKeyValueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKKeyValueManager.h; sourceTree = "<group>"; };
+		0C92970D1A090B7F0098DD16 /* YTKKeyValueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueManager.m; sourceTree = "<group>"; };
 		4597AE5419DEDFB30028ECAC /* YTKKeyValueStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTKKeyValueStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4597AE5819DEDFB30028ECAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4597AE5919DEDFB30028ECAC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				4597AE9019DEE0D90028ECAC /* FMDB */,
+				0C92970C1A090B7F0098DD16 /* YTKKeyValueManager.h */,
+				0C92970D1A090B7F0098DD16 /* YTKKeyValueManager.m */,
 				4597AE7D19DEDFC80028ECAC /* YTKKeyValueStore.h */,
 				4597AE7E19DEDFC80028ECAC /* YTKKeyValueStore.m */,
 				4597AE5B19DEDFB30028ECAC /* AppDelegate.h */,
@@ -265,6 +270,7 @@
 			files = (
 				4597AE6019DEDFB30028ECAC /* ViewController.m in Sources */,
 				4597AE9F19DEE0D90028ECAC /* FMDatabaseQueue.m in Sources */,
+				0C92970E1A090B7F0098DD16 /* YTKKeyValueManager.m in Sources */,
 				4597AE5D19DEDFB30028ECAC /* AppDelegate.m in Sources */,
 				4597AE7F19DEDFC80028ECAC /* YTKKeyValueStore.m in Sources */,
 				4597AE9C19DEE0D90028ECAC /* FMDatabase.m in Sources */,
@@ -464,6 +470,7 @@
 				4597AE7919DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4597AE7A19DEDFB30028ECAC /* Build configuration list for PBXNativeTarget "YTKKeyValueStoreTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +479,7 @@
 				4597AE7C19DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
