@@ -8,13 +8,12 @@
 
 #import "YTKKeyValueStore.h"
 #import "FMDatabase.h"
-#import "FMDatabaseAdditions.h"
 #import "FMDatabaseQueue.h"
 
 #ifdef DEBUG
 #define debugLog(...)    NSLog(__VA_ARGS__)
 #define debugMethod()    NSLog(@"%s", __func__)
-#define debugError()     NSLog(@"Error at %s Line:%d", __func__, __LINE__)
+#define debugError()     NSLog(@"Error at %s Line:%zd", __func__, __LINE__)
 #else
 #define debugLog(...)
 #define debugMethod()
@@ -39,6 +38,7 @@
 
 @implementation YTKKeyValueStore
 
+static NSString *const DEFAULT_TABLE_NAME = @"default_table";
 static NSString *const DEFAULT_DB_NAME = @"database.sqlite";
 
 static NSString *const CREATE_TABLE_SQL =
@@ -55,7 +55,7 @@ static NSString *const QUERY_ITEM_SQL = @"SELECT json, createdTime from %@ where
 
 static NSString *const SELECT_ALL_SQL = @"SELECT * from %@";
 
-static NSString *const COUNT_ALL_SQL = @"SELECT count(*) as num from %@";
+static NSString *const SELECT_ALL_ID_SQL = @"SELECT id from %@";
 
 static NSString *const CLEAR_ALL_SQL = @"DELETE from %@";
 
@@ -77,12 +77,11 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     return [self initDBWithName:DEFAULT_DB_NAME];
 }
 
-- (id)initDBWithName:(NSString *)dbName
-{
+- (id)initDBWithName:(NSString *)dbName {
     self = [super init];
     if (self) {
         NSString * dbPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:dbName];
-        debugLog(@"dbPath = %@", dbPath);
+//        debugLog(@"dbPath = %@", dbPath);
         if (_dbQueue) {
             [self close];
         }
@@ -94,7 +93,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 - (id)initWithDBWithPath:(NSString *)dbPath {
     self = [super init];
     if (self) {
-        debugLog(@"dbPath = %@", dbPath);
+//        debugLog(@"dbPath = %@", dbPath);
         if (_dbQueue) {
             [self close];
         }
@@ -117,20 +116,6 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
 }
 
-- (BOOL)isTableExists:(NSString *)tableName{
-    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
-        return NO;
-    }
-    __block BOOL result;
-    [_dbQueue inDatabase:^(FMDatabase *db) {
-        result = [db tableExists:tableName];
-    }];
-    if (!result) {
-        debugLog(@"ERROR, table: %@ not exists in current DB", tableName);
-    }
-    return result;
-}
-
 - (void)clearTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
@@ -148,6 +133,14 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 - (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
+    }
+    if(!object)
+    {
+        object = @[@""];
+    }
+    if([object isKindOfClass:NSString.class])
+    {
+        object = @[object];
     }
     NSError * error;
     NSData * data = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
@@ -272,23 +265,24 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     }
     return result;
 }
-
-- (NSUInteger)getCountFromTable:(NSString *)tableName
+- (NSArray *)getAllIdFromTable:(NSString *)tableName
 {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
-        return 0;
+        return nil;
     }
-    NSString * sql = [NSString stringWithFormat:COUNT_ALL_SQL, tableName];
-    __block NSInteger num = 0;
+    NSString * sql = [NSString stringWithFormat:SELECT_ALL_ID_SQL, tableName];
+    __block NSMutableArray * result = [NSMutableArray array];
     [_dbQueue inDatabase:^(FMDatabase *db) {
         FMResultSet * rs = [db executeQuery:sql];
-        if ([rs next]) {
-            num = [rs unsignedLongLongIntForColumn:@"num"];
+        while ([rs next])
+        {
+            [result addObject:[rs stringForColumn:@"id"]];
         }
         [rs close];
     }];
-    return num;
+    return result;
 }
+
 
 - (void)deleteObjectById:(NSString *)objectId fromTable:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
@@ -356,7 +350,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     static YTDB *db = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-       db = [[YTDB alloc]initDBWithName:dbName];
+        db = [[YTDB alloc]initDBWithName:dbName];
     });
     return db;
 }
@@ -369,11 +363,12 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 }
 +(void)putObject:(id)object fromId:(NSString *)objectId formTable:(NSString *)table
 {
-    table = table ? table : DEFAULT_DB_NAME;
+    table = table ? table : DEFAULT_TABLE_NAME;
     objectId = objectId ? objectId : @"";
-    YTDB *db = [YTDB share:table];
+    YTDB *db = [YTDB share:DEFAULT_DB_NAME];
     @synchronized(db)
     {
+        [db createTableWithName:table];
         if(object)
         {
             [db putObject:object withId:objectId intoTable:table];
@@ -391,9 +386,9 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 }
 +(id)getObjectById:(NSString *)objectId fromTable:(NSString *)table
 {
-    table = table ? table : DEFAULT_DB_NAME;
+    table = table ? table : DEFAULT_TABLE_NAME;
     objectId = objectId ? objectId : @"";
-    YTDB *db = [YTDB share:table];
+    YTDB *db = [YTDB share:DEFAULT_DB_NAME];
     @synchronized(db)
     {
         return [db getObjectById:objectId fromTable:table];
@@ -409,8 +404,8 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 }
 +(void)deleteTable:(NSString *)table
 {
-    table = table ? table : DEFAULT_DB_NAME;
-    YTDB *db = [YTDB share:table];
+    table = table ? table : DEFAULT_TABLE_NAME;
+    YTDB *db = [YTDB share:DEFAULT_DB_NAME];
     @synchronized(db)
     {
         [db clearTable:table];
