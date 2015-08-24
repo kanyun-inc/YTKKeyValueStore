@@ -59,3 +59,25 @@
 
 
 @end
+
+/**
+ *  简单粗暴的封装一层
+ */
+@interface YTDB : YTKKeyValueStore
+/**
+ *  直接传入对象保存,object传入nil时删除数据,不传入table名称时都传入default表
+ */
++(void)putObject:(id)object fromId:(NSString *)objectId;
++(void)putObject:(id)object fromId:(NSString *)objectId formTable:(NSString *)table;
+/**
+ *  获取对象
+ */
++(id)getObjectById:(NSString *)objectId;
++(id)getObjectById:(NSString *)objectId fromTable:(NSString *)table;
+
+/**
+ *  删除表
+ */
++(void)deleteDefaultTable;
++(void)deleteTable:(NSString *)table;
+@end

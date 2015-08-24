@@ -77,7 +77,8 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     return [self initDBWithName:DEFAULT_DB_NAME];
 }
 
-- (id)initDBWithName:(NSString *)dbName {
+- (id)initDBWithName:(NSString *)dbName
+{
     self = [super init];
     if (self) {
         NSString * dbPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:dbName];
@@ -346,5 +347,75 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     [_dbQueue close];
     _dbQueue = nil;
 }
+
+@end
+
+@implementation YTDB
++(instancetype)share:(NSString *)dbName
+{
+    static YTDB *db = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+       db = [[YTDB alloc]initDBWithName:dbName];
+    });
+    return db;
+}
+/**
+ *  直接传入对象保存,object传入nil时删除数据
+ */
++(void)putObject:(id)object fromId:(NSString *)objectId
+{
+    [self putObject:object fromId:objectId formTable:nil];
+}
++(void)putObject:(id)object fromId:(NSString *)objectId formTable:(NSString *)table
+{
+    table = table ? table : DEFAULT_DB_NAME;
+    objectId = objectId ? objectId : @"";
+    YTDB *db = [YTDB share:table];
+    @synchronized(db)
+    {
+        if(object)
+        {
+            [db putObject:object withId:objectId intoTable:table];
+        }else{
+            [db deleteObjectById:objectId fromTable:table];
+        }
+    }
+}
+/**
+ *  获取对象
+ */
++(id)getObjectById:(NSString *)objectId
+{
+    return [self getObjectById:objectId fromTable:nil];
+}
++(id)getObjectById:(NSString *)objectId fromTable:(NSString *)table
+{
+    table = table ? table : DEFAULT_DB_NAME;
+    objectId = objectId ? objectId : @"";
+    YTDB *db = [YTDB share:table];
+    @synchronized(db)
+    {
+        return [db getObjectById:objectId fromTable:table];
+    }
+}
+
+/**
+ *  删除表
+ */
++(void)deleteDefaultTable
+{
+    [self deleteTable:nil];
+}
++(void)deleteTable:(NSString *)table
+{
+    table = table ? table : DEFAULT_DB_NAME;
+    YTDB *db = [YTDB share:table];
+    @synchronized(db)
+    {
+        [db clearTable:table];
+    }
+}
+
 
 @end
