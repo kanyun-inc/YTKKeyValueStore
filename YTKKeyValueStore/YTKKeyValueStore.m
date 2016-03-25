@@ -8,6 +8,7 @@
 
 #import "YTKKeyValueStore.h"
 #import "FMDatabase.h"
+#import "FMDatabaseAdditions.h"
 #import "FMDatabaseQueue.h"
 
 #ifdef DEBUG
@@ -53,6 +54,8 @@ static NSString *const UPDATE_ITEM_SQL = @"REPLACE INTO %@ (id, json, createdTim
 static NSString *const QUERY_ITEM_SQL = @"SELECT json, createdTime from %@ where id = ? Limit 1";
 
 static NSString *const SELECT_ALL_SQL = @"SELECT * from %@";
+
+static NSString *const COUNT_ALL_SQL = @"SELECT count(*) as num from %@";
 
 static NSString *const CLEAR_ALL_SQL = @"DELETE from %@";
 
@@ -111,6 +114,20 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     if (!result) {
         debugLog(@"ERROR, failed to create table: %@", tableName);
     }
+}
+
+- (BOOL)isTableExists:(NSString *)tableName{
+    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+        return NO;
+    }
+    __block BOOL result;
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        result = [db tableExists:tableName];
+    }];
+    if (!result) {
+        debugLog(@"ERROR, table: %@ not exists in current DB", tableName);
+    }
+    return result;
 }
 
 - (void)clearTable:(NSString *)tableName {
@@ -253,6 +270,23 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
         }
     }
     return result;
+}
+
+- (NSUInteger)getCountFromTable:(NSString *)tableName
+{
+    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+        return 0;
+    }
+    NSString * sql = [NSString stringWithFormat:COUNT_ALL_SQL, tableName];
+    __block NSInteger num = 0;
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet * rs = [db executeQuery:sql];
+        if ([rs next]) {
+            num = [rs unsignedLongLongIntForColumn:@"num"];
+        }
+        [rs close];
+    }];
+    return num;
 }
 
 - (void)deleteObjectById:(NSString *)objectId fromTable:(NSString *)tableName {

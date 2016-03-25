@@ -25,6 +25,8 @@
 
 - (void)createTableWithName:(NSString *)tableName;
 
+- (BOOL)isTableExists:(NSString *)tableName;
+
 - (void)clearTable:(NSString *)tableName;
 
 - (void)close;
@@ -46,6 +48,8 @@
 - (NSNumber *)getNumberById:(NSString *)numberId fromTable:(NSString *)tableName;
 
 - (NSArray *)getAllItemsFromTable:(NSString *)tableName;
+
+- (NSUInteger)getCountFromTable:(NSString *)tableName;
 
 - (void)deleteObjectById:(NSString *)objectId fromTable:(NSString *)tableName;
 
