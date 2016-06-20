@@ -148,6 +148,10 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
+    if (!object) {
+        debugLog(@"ERROR, faild to get json data, object can't be nil");
+        return;
+    }
     NSError * error;
     NSData * data = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
     if (error) {
