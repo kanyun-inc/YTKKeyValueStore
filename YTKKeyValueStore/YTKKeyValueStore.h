@@ -29,6 +29,8 @@
 
 - (void)clearTable:(NSString *)tableName;
 
+- (void)dropTable:(NSString *)tableName;
+
 - (void)close;
 
 ///************************ Put&Get methods *****************************************
