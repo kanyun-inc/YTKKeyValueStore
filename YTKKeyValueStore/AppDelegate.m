@@ -27,6 +27,18 @@
     
     NSDictionary *queryUser = [store getObjectById:key fromTable:tableName];
     NSLog(@"query data result: %@", queryUser);
+
+    // Demo
+    NSString *encryptTableName = @"encrypt_user_table";
+    YTKKeyValueStore *encryptStore = [[YTKKeyValueStore alloc] initDBWithName:@"test.encrypt.db" withEncryptKey:@"encrypt.key"];
+    [encryptStore createTableWithName:encryptTableName];
+    NSString *encryptKey = @"zhenian";
+    NSDictionary *encryptUser = @{@"id": @2, @"name": @"gelosie", @"age": @31};
+    [encryptStore putObject:encryptUser withId:encryptKey intoTable:encryptTableName];
+
+    NSDictionary *encryptQueryUser = [encryptStore getObjectById:encryptKey fromTable:encryptTableName];
+    NSLog(@"query encrypt data result: %@", encryptQueryUser);
+
     
     return YES;
 }

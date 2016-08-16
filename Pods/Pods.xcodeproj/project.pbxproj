@@ -1,0 +1,634 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01BFCDF284C98FAAB4E351B4 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CB550974540DDBD0CD5E22D3 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		1644792652075186D4C79F97 /* Pods-YTKKeyValueStore-SQLCipher-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F2F8ADB3CEE3F925131C86 /* Pods-YTKKeyValueStore-SQLCipher-dummy.m */; };
+		2D8AE958E87B4C8EE07C37D1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1AC08C8C580E437DD9BF823 /* Foundation.framework */; };
+		34BC5E57A57268A9A40C8123 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0677265F65378721024486B2 /* FMDatabaseAdditions.h */; };
+		34D18B29F4607CB665C431BF /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = BF427A4FA0ECAF27EB6EF484 /* FMResultSet.h */; };
+		4AFCB9ADC3EF689ABC08845D /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = CBCB9678049473C23AD1E8D9 /* FMDatabase.h */; };
+		4B8CE40B3D5334D02AE7E36C /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A85E1B7A40645DEC15C0E4 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		5E7F73D6C1E25FDFAE516189 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF3969653978702815E7DC7 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		6453730C8BBE35D4384808B8 /* Pods-YTKKeyValueStore-FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C91186B1ABE80B71D4EF8C3E /* Pods-YTKKeyValueStore-FMDB-dummy.m */; };
+		6CE190AA549E92D25E2B2763 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1AC08C8C580E437DD9BF823 /* Foundation.framework */; };
+		A3FB31E0A53997C208460749 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF37A4ABBC06938C97E0B6 /* sqlite3.c */; settings = {COMPILER_FLAGS = "-DSQLITE_HAS_CODEC -DSQLITE_TEMP_STORE=2 -DSQLITE_THREADSAFE -DSQLCIPHER_CRYPTO_CC -fno-objc-arc"; }; };
+		A7046086D9EB973DE0164E9A /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 377266518283A46A00DA72F2 /* FMDatabasePool.h */; };
+		A8ECC6553EAF3ACE1D62C127 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D94EDC1F9B58178C4B438C4 /* FMDB.h */; };
+		B8C78492D9A1C5D42D62DD2B /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AFDB607F8D50924A424D85 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		C83983E3431E246C88724265 /* Pods-YTKKeyValueStore-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C671F9AC0B1A3529FEE731D7 /* Pods-YTKKeyValueStore-dummy.m */; };
+		D24F94B685545583615C23D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1AC08C8C580E437DD9BF823 /* Foundation.framework */; };
+		EAA5F72791B5723B8E49FF26 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = BA13E4B7C73F78FE27E37E8D /* FMDatabaseQueue.h */; };
+		EF3AE1E5C9DCBF6D64184FE8 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = C9477C739E692571CAA53306 /* sqlite3.h */; };
+		EFD3D1D504BFC5749D778301 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55416FC3E1FA56D7A182FF4B /* Security.framework */; };
+		FA96F96DEC2B05B75A5BE7B9 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB1FA7B4715D706D9CEE7B5 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0DF19C109E1D908B9CA5667A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64F6F3F5FFD04CAAF004BE79 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2AF2CD383ABCD4BB10AE5C5E;
+			remoteInfo = "Pods-YTKKeyValueStore-SQLCipher";
+		};
+		68103B9836DB355FAB1FFD74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64F6F3F5FFD04CAAF004BE79 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2AF2CD383ABCD4BB10AE5C5E;
+			remoteInfo = "Pods-YTKKeyValueStore-SQLCipher";
+		};
+		8F6564AB978916B33E911FB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64F6F3F5FFD04CAAF004BE79 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF69455AD7314E9633AC1938;
+			remoteInfo = "Pods-YTKKeyValueStore-FMDB";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0677265F65378721024486B2 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		0CB1FA7B4715D706D9CEE7B5 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		10A85E1B7A40645DEC15C0E4 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
+		25EFC42737F0919F31B8061D /* Pods-YTKKeyValueStore-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YTKKeyValueStore-acknowledgements.plist"; sourceTree = "<group>"; };
+		28BD2A636823D3D4F46F0518 /* Pods-YTKKeyValueStore-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YTKKeyValueStore-acknowledgements.markdown"; sourceTree = "<group>"; };
+		28DE8150BC63127EA5174D37 /* Pods-YTKKeyValueStore-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YTKKeyValueStore-resources.sh"; sourceTree = "<group>"; };
+		377266518283A46A00DA72F2 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
+		3965E509C9E3528C8BA531BF /* Pods-YTKKeyValueStore-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YTKKeyValueStore-environment.h"; sourceTree = "<group>"; };
+		4D94EDC1F9B58178C4B438C4 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
+		542B91991459C906BEF64A1E /* Pods-YTKKeyValueStore-FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YTKKeyValueStore-FMDB.xcconfig"; sourceTree = "<group>"; };
+		55416FC3E1FA56D7A182FF4B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		6FF3969653978702815E7DC7 /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
+		78F5E52A99661DA524AFE910 /* Pods-YTKKeyValueStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YTKKeyValueStore.debug.xcconfig"; sourceTree = "<group>"; };
+		7AAF37A4ABBC06938C97E0B6 /* sqlite3.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		831BF94AE42F842363A0FB56 /* libPods-YTKKeyValueStore-FMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YTKKeyValueStore-FMDB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		926365B65936D377F83E1422 /* Pods-YTKKeyValueStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YTKKeyValueStore.release.xcconfig"; sourceTree = "<group>"; };
+		AA46FFBB0AADB2405A8C2881 /* Pods-YTKKeyValueStore-FMDB-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YTKKeyValueStore-FMDB-Private.xcconfig"; sourceTree = "<group>"; };
+		B6302FFA06D1D45730FCD51F /* libPods-YTKKeyValueStore-SQLCipher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YTKKeyValueStore-SQLCipher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9750DD615E1BF139237130E /* Pods-YTKKeyValueStore-SQLCipher.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YTKKeyValueStore-SQLCipher.xcconfig"; sourceTree = "<group>"; };
+		BA13E4B7C73F78FE27E37E8D /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		BF427A4FA0ECAF27EB6EF484 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		C643EBBB6ED0C262E01BCA72 /* Pods-YTKKeyValueStore-FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YTKKeyValueStore-FMDB-prefix.pch"; sourceTree = "<group>"; };
+		C671F9AC0B1A3529FEE731D7 /* Pods-YTKKeyValueStore-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YTKKeyValueStore-dummy.m"; sourceTree = "<group>"; };
+		C91186B1ABE80B71D4EF8C3E /* Pods-YTKKeyValueStore-FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YTKKeyValueStore-FMDB-dummy.m"; sourceTree = "<group>"; };
+		C9477C739E692571CAA53306 /* sqlite3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		CB550974540DDBD0CD5E22D3 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		CBCB9678049473C23AD1E8D9 /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		D9F2F8ADB3CEE3F925131C86 /* Pods-YTKKeyValueStore-SQLCipher-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YTKKeyValueStore-SQLCipher-dummy.m"; sourceTree = "<group>"; };
+		DE590D80FE9522D01EC5C3B0 /* libPods-YTKKeyValueStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YTKKeyValueStore.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6326C2F3D741BA073F31B35 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		EB3032838F184E2885DE19CB /* Pods-YTKKeyValueStore-SQLCipher-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YTKKeyValueStore-SQLCipher-prefix.pch"; sourceTree = "<group>"; };
+		F03AEC7E667E2824D80904D4 /* Pods-YTKKeyValueStore-SQLCipher-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YTKKeyValueStore-SQLCipher-Private.xcconfig"; sourceTree = "<group>"; };
+		F0AFDB607F8D50924A424D85 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
+		F1AC08C8C580E437DD9BF823 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3606501D648709FCB849E2C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D8AE958E87B4C8EE07C37D1 /* Foundation.framework in Frameworks */,
+				EFD3D1D504BFC5749D778301 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46BCB70CE4763E6352B34D86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24F94B685545583615C23D5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87D323E112FD57FD69FFD957 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CE190AA549E92D25E2B2763 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		249204018BA52D639FCA27DA /* common */ = {
+			isa = PBXGroup;
+			children = (
+				7AAF37A4ABBC06938C97E0B6 /* sqlite3.c */,
+				C9477C739E692571CAA53306 /* sqlite3.h */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		764DD5D3A094CF3ED2FF5AD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3B007459E627E91F67D229E /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E184FD9A0F59EF47DF06BC9 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				4D94EDC1F9B58178C4B438C4 /* FMDB.h */,
+				CBCB9678049473C23AD1E8D9 /* FMDatabase.h */,
+				6FF3969653978702815E7DC7 /* FMDatabase.m */,
+				0677265F65378721024486B2 /* FMDatabaseAdditions.h */,
+				0CB1FA7B4715D706D9CEE7B5 /* FMDatabaseAdditions.m */,
+				377266518283A46A00DA72F2 /* FMDatabasePool.h */,
+				F0AFDB607F8D50924A424D85 /* FMDatabasePool.m */,
+				BA13E4B7C73F78FE27E37E8D /* FMDatabaseQueue.h */,
+				CB550974540DDBD0CD5E22D3 /* FMDatabaseQueue.m */,
+				BF427A4FA0ECAF27EB6EF484 /* FMResultSet.h */,
+				10A85E1B7A40645DEC15C0E4 /* FMResultSet.m */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		9CE69EB3AF12CC2928C9AD68 = {
+			isa = PBXGroup;
+			children = (
+				E6326C2F3D741BA073F31B35 /* Podfile */,
+				764DD5D3A094CF3ED2FF5AD4 /* Frameworks */,
+				EC9AF0139DA90C215E4AA358 /* Pods */,
+				BE1DF58AE37F6D393569F4C2 /* Products */,
+				AB183B2CEC3B12B63849CCD2 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9F4F047FBA07787992F0FB39 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B9750DD615E1BF139237130E /* Pods-YTKKeyValueStore-SQLCipher.xcconfig */,
+				F03AEC7E667E2824D80904D4 /* Pods-YTKKeyValueStore-SQLCipher-Private.xcconfig */,
+				D9F2F8ADB3CEE3F925131C86 /* Pods-YTKKeyValueStore-SQLCipher-dummy.m */,
+				EB3032838F184E2885DE19CB /* Pods-YTKKeyValueStore-SQLCipher-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-YTKKeyValueStore-SQLCipher";
+			sourceTree = "<group>";
+		};
+		AB183B2CEC3B12B63849CCD2 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F2C15099DFE10429B69B1AEE /* Pods-YTKKeyValueStore */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		B90613F48847EE07505E88B7 /* SQLCipher */ = {
+			isa = PBXGroup;
+			children = (
+				9F4F047FBA07787992F0FB39 /* Support Files */,
+				249204018BA52D639FCA27DA /* common */,
+			);
+			path = SQLCipher;
+			sourceTree = "<group>";
+		};
+		BE1DF58AE37F6D393569F4C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE590D80FE9522D01EC5C3B0 /* libPods-YTKKeyValueStore.a */,
+				831BF94AE42F842363A0FB56 /* libPods-YTKKeyValueStore-FMDB.a */,
+				B6302FFA06D1D45730FCD51F /* libPods-YTKKeyValueStore-SQLCipher.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C2AE855FCCBCA7B1D0ACD0AD /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				F902C396F8A14EBA1A96E82C /* Support Files */,
+				7E184FD9A0F59EF47DF06BC9 /* common */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		D3B007459E627E91F67D229E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F1AC08C8C580E437DD9BF823 /* Foundation.framework */,
+				55416FC3E1FA56D7A182FF4B /* Security.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		EC9AF0139DA90C215E4AA358 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2AE855FCCBCA7B1D0ACD0AD /* FMDB */,
+				B90613F48847EE07505E88B7 /* SQLCipher */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F2C15099DFE10429B69B1AEE /* Pods-YTKKeyValueStore */ = {
+			isa = PBXGroup;
+			children = (
+				28BD2A636823D3D4F46F0518 /* Pods-YTKKeyValueStore-acknowledgements.markdown */,
+				25EFC42737F0919F31B8061D /* Pods-YTKKeyValueStore-acknowledgements.plist */,
+				C671F9AC0B1A3529FEE731D7 /* Pods-YTKKeyValueStore-dummy.m */,
+				3965E509C9E3528C8BA531BF /* Pods-YTKKeyValueStore-environment.h */,
+				28DE8150BC63127EA5174D37 /* Pods-YTKKeyValueStore-resources.sh */,
+				78F5E52A99661DA524AFE910 /* Pods-YTKKeyValueStore.debug.xcconfig */,
+				926365B65936D377F83E1422 /* Pods-YTKKeyValueStore.release.xcconfig */,
+			);
+			name = "Pods-YTKKeyValueStore";
+			path = "Target Support Files/Pods-YTKKeyValueStore";
+			sourceTree = "<group>";
+		};
+		F902C396F8A14EBA1A96E82C /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				542B91991459C906BEF64A1E /* Pods-YTKKeyValueStore-FMDB.xcconfig */,
+				AA46FFBB0AADB2405A8C2881 /* Pods-YTKKeyValueStore-FMDB-Private.xcconfig */,
+				C91186B1ABE80B71D4EF8C3E /* Pods-YTKKeyValueStore-FMDB-dummy.m */,
+				C643EBBB6ED0C262E01BCA72 /* Pods-YTKKeyValueStore-FMDB-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-YTKKeyValueStore-FMDB";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		91ED7C49732A603C04DFCD87 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8ECC6553EAF3ACE1D62C127 /* FMDB.h in Headers */,
+				4AFCB9ADC3EF689ABC08845D /* FMDatabase.h in Headers */,
+				34BC5E57A57268A9A40C8123 /* FMDatabaseAdditions.h in Headers */,
+				A7046086D9EB973DE0164E9A /* FMDatabasePool.h in Headers */,
+				EAA5F72791B5723B8E49FF26 /* FMDatabaseQueue.h in Headers */,
+				34D18B29F4607CB665C431BF /* FMResultSet.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA55CED0937FDDFF5D6847A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF3AE1E5C9DCBF6D64184FE8 /* sqlite3.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2AF2CD383ABCD4BB10AE5C5E /* Pods-YTKKeyValueStore-SQLCipher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 420E4429E2FCBF016DB2106D /* Build configuration list for PBXNativeTarget "Pods-YTKKeyValueStore-SQLCipher" */;
+			buildPhases = (
+				F631883A92C668B932013CDF /* Sources */,
+				3606501D648709FCB849E2C8 /* Frameworks */,
+				DFA55CED0937FDDFF5D6847A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-YTKKeyValueStore-SQLCipher";
+			productName = "Pods-YTKKeyValueStore-SQLCipher";
+			productReference = B6302FFA06D1D45730FCD51F /* libPods-YTKKeyValueStore-SQLCipher.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		59DD7908A6C66E17E8B7F262 /* Pods-YTKKeyValueStore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42558CB7119F533CF94F34C1 /* Build configuration list for PBXNativeTarget "Pods-YTKKeyValueStore" */;
+			buildPhases = (
+				0A43C1C52E88AC69D901BAF8 /* Sources */,
+				87D323E112FD57FD69FFD957 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4434D086F5063546C9C98A7C /* PBXTargetDependency */,
+				4D5530A67E42C707E7908D9A /* PBXTargetDependency */,
+			);
+			name = "Pods-YTKKeyValueStore";
+			productName = "Pods-YTKKeyValueStore";
+			productReference = DE590D80FE9522D01EC5C3B0 /* libPods-YTKKeyValueStore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EF69455AD7314E9633AC1938 /* Pods-YTKKeyValueStore-FMDB */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BAD00C252213835ABEC1DA9 /* Build configuration list for PBXNativeTarget "Pods-YTKKeyValueStore-FMDB" */;
+			buildPhases = (
+				3791092F2AD7F9743E75E372 /* Sources */,
+				46BCB70CE4763E6352B34D86 /* Frameworks */,
+				91ED7C49732A603C04DFCD87 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F65FA585D40E28025DE9469E /* PBXTargetDependency */,
+			);
+			name = "Pods-YTKKeyValueStore-FMDB";
+			productName = "Pods-YTKKeyValueStore-FMDB";
+			productReference = 831BF94AE42F842363A0FB56 /* libPods-YTKKeyValueStore-FMDB.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		64F6F3F5FFD04CAAF004BE79 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+			};
+			buildConfigurationList = 70F5DDEC24DD3D4BEEC01305 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9CE69EB3AF12CC2928C9AD68;
+			productRefGroup = BE1DF58AE37F6D393569F4C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				59DD7908A6C66E17E8B7F262 /* Pods-YTKKeyValueStore */,
+				EF69455AD7314E9633AC1938 /* Pods-YTKKeyValueStore-FMDB */,
+				2AF2CD383ABCD4BB10AE5C5E /* Pods-YTKKeyValueStore-SQLCipher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A43C1C52E88AC69D901BAF8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C83983E3431E246C88724265 /* Pods-YTKKeyValueStore-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3791092F2AD7F9743E75E372 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E7F73D6C1E25FDFAE516189 /* FMDatabase.m in Sources */,
+				FA96F96DEC2B05B75A5BE7B9 /* FMDatabaseAdditions.m in Sources */,
+				B8C78492D9A1C5D42D62DD2B /* FMDatabasePool.m in Sources */,
+				01BFCDF284C98FAAB4E351B4 /* FMDatabaseQueue.m in Sources */,
+				4B8CE40B3D5334D02AE7E36C /* FMResultSet.m in Sources */,
+				6453730C8BBE35D4384808B8 /* Pods-YTKKeyValueStore-FMDB-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F631883A92C668B932013CDF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1644792652075186D4C79F97 /* Pods-YTKKeyValueStore-SQLCipher-dummy.m in Sources */,
+				A3FB31E0A53997C208460749 /* sqlite3.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4434D086F5063546C9C98A7C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-YTKKeyValueStore-FMDB";
+			target = EF69455AD7314E9633AC1938 /* Pods-YTKKeyValueStore-FMDB */;
+			targetProxy = 8F6564AB978916B33E911FB8 /* PBXContainerItemProxy */;
+		};
+		4D5530A67E42C707E7908D9A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-YTKKeyValueStore-SQLCipher";
+			target = 2AF2CD383ABCD4BB10AE5C5E /* Pods-YTKKeyValueStore-SQLCipher */;
+			targetProxy = 68103B9836DB355FAB1FFD74 /* PBXContainerItemProxy */;
+		};
+		F65FA585D40E28025DE9469E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-YTKKeyValueStore-SQLCipher";
+			target = 2AF2CD383ABCD4BB10AE5C5E /* Pods-YTKKeyValueStore-SQLCipher */;
+			targetProxy = 0DF19C109E1D908B9CA5667A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		11D1BDBD57475786BC2D8107 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78F5E52A99661DA524AFE910 /* Pods-YTKKeyValueStore.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		17F666B239107867057B3452 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F03AEC7E667E2824D80904D4 /* Pods-YTKKeyValueStore-SQLCipher-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-YTKKeyValueStore-SQLCipher/Pods-YTKKeyValueStore-SQLCipher-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		301D93322A7F325A2BCFB498 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA46FFBB0AADB2405A8C2881 /* Pods-YTKKeyValueStore-FMDB-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-YTKKeyValueStore-FMDB/Pods-YTKKeyValueStore-FMDB-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		5AD54AE42202796BDA1802A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F03AEC7E667E2824D80904D4 /* Pods-YTKKeyValueStore-SQLCipher-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-YTKKeyValueStore-SQLCipher/Pods-YTKKeyValueStore-SQLCipher-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		621461B10E653816116B36D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9F02D2F7BB57587039B02DA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		CF31ACB1FC5892F032CB2132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA46FFBB0AADB2405A8C2881 /* Pods-YTKKeyValueStore-FMDB-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-YTKKeyValueStore-FMDB/Pods-YTKKeyValueStore-FMDB-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D224D4D0856D5515285BEBC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 926365B65936D377F83E1422 /* Pods-YTKKeyValueStore.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3BAD00C252213835ABEC1DA9 /* Build configuration list for PBXNativeTarget "Pods-YTKKeyValueStore-FMDB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF31ACB1FC5892F032CB2132 /* Debug */,
+				301D93322A7F325A2BCFB498 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		420E4429E2FCBF016DB2106D /* Build configuration list for PBXNativeTarget "Pods-YTKKeyValueStore-SQLCipher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17F666B239107867057B3452 /* Debug */,
+				5AD54AE42202796BDA1802A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42558CB7119F533CF94F34C1 /* Build configuration list for PBXNativeTarget "Pods-YTKKeyValueStore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11D1BDBD57475786BC2D8107 /* Debug */,
+				D224D4D0856D5515285BEBC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70F5DDEC24DD3D4BEEC01305 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F02D2F7BB57587039B02DA9 /* Debug */,
+				621461B10E653816116B36D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 64F6F3F5FFD04CAAF004BE79 /* Project object */;
+}

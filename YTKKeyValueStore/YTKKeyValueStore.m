@@ -34,6 +34,7 @@
 @interface YTKKeyValueStore()
 
 @property (strong, nonatomic) FMDatabaseQueue * dbQueue;
+@property (strong, nonatomic) NSString * encryptKey;
 
 @end
 
@@ -79,7 +80,8 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     return [self initDBWithName:DEFAULT_DB_NAME];
 }
 
-- (id)initDBWithName:(NSString *)dbName {
+- (id)initDBWithName:(NSString *)dbName
+{
     self = [super init];
     if (self) {
         NSString * dbPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:dbName];
@@ -92,7 +94,21 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     return self;
 }
 
-- (id)initWithDBWithPath:(NSString *)dbPath {
+- (id)initDBWithName:(NSString *)dbName withEncryptKey:(NSString *)encryptKey;{
+    self = [super init];
+    if (self) {
+        NSString * dbPath = [PATH_OF_DOCUMENT stringByAppendingPathComponent:dbName];
+        debugLog(@"dbPath = %@", dbPath);
+        if (_dbQueue) {
+            [self close];
+        }
+        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
+        _encryptKey = encryptKey;
+    }
+    return self;
+}
+
+- (id)initWithDBWithPath:(NSString *)dbPath;{
     self = [super init];
     if (self) {
         debugLog(@"dbPath = %@", dbPath);
@@ -104,6 +120,21 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     return self;
 }
 
+- (id)initWithDBWithPath:(NSString *)dbPath withEncryptKey:(NSString *)encryptKey;{
+    self = [super init];
+    if (self) {
+        debugLog(@"dbPath = %@", dbPath);
+        if (_dbQueue) {
+            [self close];
+        }
+        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
+        _encryptKey = encryptKey;
+    }
+    return self;
+}
+
+
+
 - (void)createTableWithName:(NSString *)tableName {
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
@@ -111,6 +142,9 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     NSString * sql = [NSString stringWithFormat:CREATE_TABLE_SQL, tableName];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         result = [db executeUpdate:sql];
     }];
     if (!result) {
@@ -124,6 +158,9 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     }
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         result = [db tableExists:tableName];
     }];
     if (!result) {
@@ -139,6 +176,9 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     NSString * sql = [NSString stringWithFormat:CLEAR_ALL_SQL, tableName];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         result = [db executeUpdate:sql];
     }];
     if (!result) {
@@ -175,6 +215,9 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     NSString * sql = [NSString stringWithFormat:UPDATE_ITEM_SQL, tableName];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         result = [db executeUpdate:sql, objectId, jsonString, createdTime];
     }];
     if (!result) {
@@ -199,6 +242,9 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     __block NSString * json = nil;
     __block NSDate * createdTime = nil;
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         FMResultSet * rs = [db executeQuery:sql, objectId];
         if ([rs next]) {
             json = [rs stringForColumn:@"json"];
@@ -263,6 +309,9 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     NSString * sql = [NSString stringWithFormat:SELECT_ALL_SQL, tableName];
     __block NSMutableArray * result = [NSMutableArray array];
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         FMResultSet * rs = [db executeQuery:sql];
         while ([rs next]) {
             YTKKeyValueItem * item = [[YTKKeyValueItem alloc] init];
@@ -312,11 +361,34 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     NSString * sql = [NSString stringWithFormat:DELETE_ITEM_SQL, tableName];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         result = [db executeUpdate:sql, objectId];
     }];
     if (!result) {
         debugLog(@"ERROR, failed to delete item from table: %@", tableName);
     }
+}
+
+- (NSUInteger)getCountFromTable:(NSString *)tableName
+{
+    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+        return 0;
+    }
+    NSString * sql = [NSString stringWithFormat:COUNT_ALL_SQL, tableName];
+    __block NSUInteger num = 0;
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
+        FMResultSet * rs = [db executeQuery:sql];
+        if ([rs next]) {
+            num = [rs unsignedLongLongIntForColumn:@"num"];
+        }
+        [rs close];
+    }];
+    return num;
 }
 
 - (void)deleteObjectsByIdArray:(NSArray *)objectIdArray fromTable:(NSString *)tableName {
@@ -336,6 +408,9 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     NSString *sql = [NSString stringWithFormat:DELETE_ITEMS_SQL, tableName, stringBuilder];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         result = [db executeUpdate:sql];
     }];
     if (!result) {
@@ -351,6 +426,9 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     NSString *prefixArgument = [NSString stringWithFormat:@"%@%%", objectIdPrefix];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (_encryptKey) {
+            [db setKey:_encryptKey];
+        }
         result = [db executeUpdate:sql, prefixArgument];
     }];
     if (!result) {

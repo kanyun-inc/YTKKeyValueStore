@@ -60,13 +60,22 @@ NSLog(@"query data result: %@", queryUser);
 
 所有的接口都封装在`YTKKeyValueStore`类中。以下是一些常用方法说明。
 
-### 打开（或创建）数据库
+### 打开（或创建）[加密]数据库
 
 通过`initDBWithName`方法，即可在程序的`Document`目录打开指定的数据库文件。如果该文件不存在，则会创建一个新的数据库。
+
+#### 不加密数据库
 
 ```
 // 打开名为test.db的数据库，如果该文件不存在，则创新一个新的。
 YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initDBWithName:@"test.db"];
+```
+
+#### 加密数据库
+
+```
+// 打开名为test.encrypt.db的加密数据库，如果该文件不存在，则创新一个新的。
+YTKKeyValueStore *encryptStore = [[YTKKeyValueStore alloc] initDBWithName:@"test.encrypt.db" withEncryptKey:@"encrypt.key"];
 ```
 
 ### 创建数据库表
