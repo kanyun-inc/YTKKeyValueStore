@@ -37,6 +37,8 @@
 
 - (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName;
 
+- (void)putObjects:(NSArray *)keyValueItems intoTable:(NSString *)tableName;
+
 - (id)getObjectById:(NSString *)objectId fromTable:(NSString *)tableName;
 
 - (YTKKeyValueItem *)getYTKKeyValueItemById:(NSString *)objectId fromTable:(NSString *)tableName;

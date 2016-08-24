@@ -182,6 +182,38 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     }
 }
 
+- (void)putObjects:(NSArray *)keyValueItems intoTable:(NSString *)tableName
+{
+    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+        return;
+    }
+    __block BOOL result;
+    [_dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        for (YTKKeyValueItem *item in keyValueItems) {
+            id object = item.itemObject;
+            NSString *objectId = item.itemId;
+            
+            NSError * error;
+            NSData * data = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
+            if (error) {
+                debugLog(@"ERROR, faild to get json data");
+                continue;
+            }
+            
+            NSString * jsonString = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)];
+            NSDate * createdTime = [NSDate date];
+            NSString * sql = [NSString stringWithFormat:UPDATE_ITEM_SQL, tableName];
+            
+            result = [db executeUpdate:sql, objectId, jsonString, createdTime];
+            if (!result) {
+                *rollback = YES;
+                debugLog(@"ERROR, rollback to insert/replace into table: %@", tableName);
+                return;
+            }
+        }
+    }];
+}
+
 - (id)getObjectById:(NSString *)objectId fromTable:(NSString *)tableName {
     YTKKeyValueItem * item = [self getYTKKeyValueItemById:objectId fromTable:tableName];
     if (item) {
