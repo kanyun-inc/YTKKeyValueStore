@@ -164,12 +164,12 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
-    NSError * error;
-    NSData * data = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
-    if (error) {
+    if([NSJSONSerialization isValidJSONObject:object] == NO){
         debugLog(@"ERROR, faild to get json data");
         return;
     }
+    NSData * data = [NSJSONSerialization dataWithJSONObject:object options:0 error:nil];
+
     NSString * jsonString = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)];
     NSDate * createdTime = [NSDate date];
     NSString * sql = [NSString stringWithFormat:UPDATE_ITEM_SQL, tableName];

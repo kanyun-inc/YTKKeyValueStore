@@ -10,6 +10,14 @@
 #import <XCTest/XCTest.h>
 #import "YTKKeyValueStore.h"
 
+@interface YTKPersion : NSObject
+@property (nonatomic, strong) NSString *name;
+@end
+
+@implementation YTKPersion
+
+@end
+
 @interface YTKKeyValueStoreTests : XCTestCase
 
 @end
@@ -75,6 +83,16 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
     }];
+}
+
+- (void)testInvalidObject{
+    YTKPersion *person = [YTKPersion new];
+    person.name = @"apple";
+    @try {
+        [_store putObject:person withId:@"1" intoTable:_tableName];
+    } @catch (NSException *exception) {
+        XCTAssert(NO, @"should NOT throw and exception");
+    }
 }
 
 @end
