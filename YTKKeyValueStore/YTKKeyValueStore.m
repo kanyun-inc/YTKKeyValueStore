@@ -55,6 +55,8 @@ static NSString *const QUERY_ITEM_SQL = @"SELECT json, createdTime from %@ where
 
 static NSString *const SELECT_ALL_SQL = @"SELECT * from %@";
 
+static NSString *const SELECT_ALL_ID_SQL = @"SELECT id from %@";
+
 static NSString *const COUNT_ALL_SQL = @"SELECT count(*) as num from %@";
 
 static NSString *const CLEAR_ALL_SQL = @"DELETE from %@";
@@ -285,6 +287,24 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
             item.itemObject = object;
         }
     }
+    return result;
+}
+
+- (NSArray *)getAllItemIDsFromTable:(NSString *)tableName {
+    if ([YTKKeyValueStore checkTableName:tableName] == NO) {
+        return nil;
+    }
+    NSString * sql = [NSString stringWithFormat:SELECT_ALL_ID_SQL, tableName];
+    __block NSMutableArray * result = [NSMutableArray array];
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet * rs = [db executeQuery:sql];
+        while ([rs next]) {
+            YTKKeyValueItem * item = [[YTKKeyValueItem alloc] init];
+            item.itemId = [rs stringForColumn:@"id"];
+            [result addObject:item.itemId];
+        }
+        [rs close];
+    }];
     return result;
 }
 
