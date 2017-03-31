@@ -70,6 +70,20 @@
     XCTAssertNil(result);
 }
 
+- (void)testGetAllItemIDsFromTable {
+    NSNumber *number1 = @1;
+    NSString *key1 = @"key1";
+    NSNumber *number2 = @2;
+    NSString *key2 = @"key2";
+    NSArray *IDs = @[key1, key2];
+    [_store putNumber:number1 withId:key1 intoTable:_tableName];
+    [_store putNumber:number2 withId:key2 intoTable:_tableName];
+    
+    NSArray *result;
+    result = [_store getAllItemIDsFromTable:_tableName];
+    XCTAssertEqualObjects(result, IDs);
+}
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
