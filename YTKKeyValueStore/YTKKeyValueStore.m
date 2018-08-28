@@ -323,17 +323,8 @@ static NSString *const DROP_TABLE_SQL = @" DROP TABLE '%@' ";
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }
-    NSMutableString *stringBuilder = [NSMutableString string];
-    for (id objectId in objectIdArray) {
-        NSString *item = [NSString stringWithFormat:@" '%@' ", objectId];
-        if (stringBuilder.length == 0) {
-            [stringBuilder appendString:item];
-        } else {
-            [stringBuilder appendString:@","];
-            [stringBuilder appendString:item];
-        }
-    }
-    NSString *sql = [NSString stringWithFormat:DELETE_ITEMS_SQL, tableName, stringBuilder];
+    NSString *objectIds = [objectIdArray componentsJoinedByString:@", "] ?: @"";
+    NSString *sql = [NSString stringWithFormat:DELETE_ITEMS_SQL, tableName, objectIds];
     __block BOOL result;
     [_dbQueue inDatabase:^(FMDatabase *db) {
         result = [db executeUpdate:sql];
