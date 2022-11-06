@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author       = { "tangqiao" => "tangqiao@fenbi.com" }
   s.platform     = :ios
   s.source       = { :git => "https://github.com/yuantiku/YTKKeyValueStore.git", :tag => "0.1.2" }
-  s.source_files = "YTKKeyValueStore/YTKKeyValueStore.{h,m}"
+  s.source_files = "YTKKeyValueStore/Sources/YTKKeyValueStore.{h,m}"
   s.requires_arc = true
   s.dependency   "FMDB", "~> 2.0"
 end
