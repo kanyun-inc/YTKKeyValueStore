@@ -14,13 +14,13 @@
 		4597AE6519DEDFB30028ECAC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4597AE6419DEDFB30028ECAC /* Images.xcassets */; };
 		4597AE6819DEDFB30028ECAC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4597AE6619DEDFB30028ECAC /* LaunchScreen.xib */; };
 		4597AE7419DEDFB30028ECAC /* YTKKeyValueStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE7319DEDFB30028ECAC /* YTKKeyValueStoreTests.m */; };
-		4597AE7F19DEDFC80028ECAC /* YTKKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE7E19DEDFC80028ECAC /* YTKKeyValueStore.m */; };
 		4597AE9C19DEE0D90028ECAC /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9219DEE0D90028ECAC /* FMDatabase.m */; };
 		4597AE9D19DEE0D90028ECAC /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9419DEE0D90028ECAC /* FMDatabaseAdditions.m */; };
 		4597AE9E19DEE0D90028ECAC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9619DEE0D90028ECAC /* FMDatabasePool.m */; };
 		4597AE9F19DEE0D90028ECAC /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9819DEE0D90028ECAC /* FMDatabaseQueue.m */; };
 		4597AEA019DEE0D90028ECAC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597AE9B19DEE0D90028ECAC /* FMResultSet.m */; };
 		4597AEA219DEE0EC0028ECAC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4597AEA119DEE0EC0028ECAC /* libsqlite3.dylib */; };
+		9F7649492917A119006B10CD /* Sources in Resources */ = {isa = PBXBuildFile; fileRef = 9F7649482917A119006B10CD /* Sources */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,8 +47,6 @@
 		4597AE6D19DEDFB30028ECAC /* YTKKeyValueStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YTKKeyValueStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4597AE7219DEDFB30028ECAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4597AE7319DEDFB30028ECAC /* YTKKeyValueStoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueStoreTests.m; sourceTree = "<group>"; };
-		4597AE7D19DEDFC80028ECAC /* YTKKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKKeyValueStore.h; sourceTree = "<group>"; };
-		4597AE7E19DEDFC80028ECAC /* YTKKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueStore.m; sourceTree = "<group>"; };
 		4597AE9119DEE0D90028ECAC /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		4597AE9219DEE0D90028ECAC /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		4597AE9319DEE0D90028ECAC /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -61,6 +59,7 @@
 		4597AE9A19DEE0D90028ECAC /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		4597AE9B19DEE0D90028ECAC /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		4597AEA119DEE0EC0028ECAC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		9F7649482917A119006B10CD /* Sources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,9 +103,8 @@
 		4597AE5619DEDFB30028ECAC /* YTKKeyValueStore */ = {
 			isa = PBXGroup;
 			children = (
+				9F7649482917A119006B10CD /* Sources */,
 				4597AE9019DEE0D90028ECAC /* FMDB */,
-				4597AE7D19DEDFC80028ECAC /* YTKKeyValueStore.h */,
-				4597AE7E19DEDFC80028ECAC /* YTKKeyValueStore.m */,
 				4597AE5B19DEDFB30028ECAC /* AppDelegate.h */,
 				4597AE5C19DEDFB30028ECAC /* AppDelegate.m */,
 				4597AE5E19DEDFB30028ECAC /* ViewController.h */,
@@ -224,6 +222,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -246,6 +245,7 @@
 				4597AE6319DEDFB30028ECAC /* Main.storyboard in Resources */,
 				4597AE6819DEDFB30028ECAC /* LaunchScreen.xib in Resources */,
 				4597AE6519DEDFB30028ECAC /* Images.xcassets in Resources */,
+				9F7649492917A119006B10CD /* Sources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +266,6 @@
 				4597AE6019DEDFB30028ECAC /* ViewController.m in Sources */,
 				4597AE9F19DEE0D90028ECAC /* FMDatabaseQueue.m in Sources */,
 				4597AE5D19DEDFB30028ECAC /* AppDelegate.m in Sources */,
-				4597AE7F19DEDFC80028ECAC /* YTKKeyValueStore.m in Sources */,
 				4597AE9C19DEE0D90028ECAC /* FMDatabase.m in Sources */,
 				4597AE9E19DEE0D90028ECAC /* FMDatabasePool.m in Sources */,
 				4597AEA019DEE0D90028ECAC /* FMResultSet.m in Sources */,
@@ -464,6 +463,7 @@
 				4597AE7919DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4597AE7A19DEDFB30028ECAC /* Build configuration list for PBXNativeTarget "YTKKeyValueStoreTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +472,7 @@
 				4597AE7C19DEDFB30028ECAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

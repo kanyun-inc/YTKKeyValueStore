@@ -22,6 +22,7 @@ let package = Package(
         .target(
             name: "YTKKeyValueStore",
             dependencies: [ .product(name: "FMDB", package: "FMDB"),],
+            path: "YTKKeyValueStore/Sources",
             publicHeadersPath: "."
         )
     ]
